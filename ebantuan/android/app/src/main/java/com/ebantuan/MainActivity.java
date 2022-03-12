@@ -1,5 +1,6 @@
-package com.ebantuan;
 
+package com.ebantuan;
+import android.os.Bundle; //at top here
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {
@@ -12,4 +13,11 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "ebantuan";
   }
+
+  @Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(null);
+}
+
+
 }
