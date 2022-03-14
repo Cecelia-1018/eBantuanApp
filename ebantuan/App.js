@@ -27,20 +27,7 @@ function HomeTabs() {
         tabBarActiveTintColor: '#000000',
       }}
       initialRouteName="Dashboard">
-      <Tab.Screen
-        name="Dashboard"
-        component={DashboardScreen}
-        options={{
-          headerShown: false,
-          tabBarLabel: 'Dashboard',
-          tabBarIcon: ({color, size}) => (
-            <Image
-            style={styles.icon}
-            source={{uri: 'https://cdn-icons-png.flaticon.com/512/1828/1828673.png'}}
-          />
-          ),
-        }}
-      />
+    
       <Tab.Screen
         name="Donation"
         component={DonationScreen}
@@ -51,6 +38,20 @@ function HomeTabs() {
             <Image
             style={styles.icon2}
             source={{uri: 'https://cdn-icons.flaticon.com/png/512/2805/premium/2805734.png?token=exp=1647065621~hmac=fb7801e36ff23a687e79e2ef6ca64779'}}
+          />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Dashboard"
+        component={DashboardScreen}
+        options={{
+          headerShown: false,
+          tabBarLabel: 'Dashboard',
+          tabBarIcon: ({color, size}) => (
+            <Image
+            style={styles.icon}
+            source={{uri: 'https://cdn-icons-png.flaticon.com/512/1828/1828673.png'}}
           />
           ),
         }}

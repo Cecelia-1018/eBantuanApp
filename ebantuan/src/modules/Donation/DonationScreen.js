@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
+import firestore from '@react-native-firebase/firestore';
 
-class DonationScreen extends Component {
-  render() {
+function DonationScreen () {
+  
+  firestore()
+  .collection('Donation')
+  .add({
+    donorName: 'Ada Lovelace',
+    money: 30,
+  })
+  .then(() => {
+    console.log('Donation added!');
+  });
+  
+    
     return (
       <View style={{
           flex: 1,
@@ -12,7 +24,7 @@ class DonationScreen extends Component {
         <Text>DonationScreen</Text>
       </View>
     );
-  }
+ 
 }
 
 export default DonationScreen;

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "520490960976",
+    "project_id": "ebantuan-88d00",
+    "storage_bucket": "ebantuan-88d00.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520490960976:android:4124e78e3518c074e3a955",
+        "android_client_info": {
+          "package_name": "com.ebantuan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520490960976-18jucbmo3e5gfqkdrru0d4iqrtpg213i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_MAHGMOiaQhd-km0_8nd8tdXN0_wRpho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520490960976-18jucbmo3e5gfqkdrru0d4iqrtpg213i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
