@@ -37,7 +37,7 @@ function HomeTabs() {
           tabBarIcon: ({color, size}) => (
             <Image
             style={styles.icon2}
-            source={{uri: 'https://cdn-icons.flaticon.com/png/512/2805/premium/2805734.png?token=exp=1647065621~hmac=fb7801e36ff23a687e79e2ef6ca64779'}}
+            source={require('./assets/donation.png')}
           />
           ),
         }}
@@ -65,7 +65,7 @@ function HomeTabs() {
           tabBarIcon: ({color, size}) => (
             <Image
             style={styles.icon2}
-            source={{uri: 'https://cdn-icons.flaticon.com/png/512/4142/premium/4142652.png?token=exp=1647065746~hmac=441f10d28e34250bfc0c3e472f8e6314'}}
+            source={require('./assets/fundhelp.png')}
           />
           ),
         }}
@@ -80,7 +80,7 @@ function HomeTabs() {
           tabBarIcon: ({color, size}) => (
             <Image
             style={styles.icon2}
-            source={{uri: 'https://cdn-icons.flaticon.com/png/512/552/premium/552909.png?token=exp=1647065823~hmac=b6f2054fc1762bff276d1f698e795a72'}}
+            source={require('./assets/profile.png')}
           />
           ),
         }}
