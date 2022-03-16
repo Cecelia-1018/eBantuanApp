@@ -5,6 +5,7 @@ import { View, Image, Text, ImageBackground, StyleSheet, ScrollView, Dimensions,
 import { FlatList, Alert } from 'react-native-gesture-handler';
 
 
+
 const dashboardPartB_1 = { uri: "https://nonprofithub.org/wp-content/uploads/2018/11/blog-chart.png" }
 const dashboardPartB_2 = { uri: "https://www.savethechildren.org/content/dam/usa/reports/annual-report/annual-report/2020-annual-report-financials-giving-helps-rec.png/_jcr_content/renditions/cq5dam.thumbnail.768.768.png')" }
 const donationHistory = { uri: "require('./profileDonationHistory.png')" }
@@ -22,8 +23,8 @@ const bannerimages = [
 const { width } = Dimensions.get("window");
 const height = width * 0.4;
 const bannerheight = width * 0.28;
-const dashboardPartA = width * 0.35;
-const dashboardPartB = width * 0.92;
+const dashboardPartA = width * 0.4;
+const dashboardPartB = width * 0.88;
 const DummyDonor = [
   { id: 1, name: "Andy", amount: 1000, date: "3/16/2022" },
   { id: 2, name: "Jordan", amount: 500, date: "3/16/2022" },
@@ -33,7 +34,23 @@ const DummyDonor = [
   { id: 6, name: "WaiYi", amount: 500, date: "3/16/2022" },
   { id: 7, name: "Cecelia", amount: 200, date: "3/16/2022" },
   { id: 8, name: "Dennis", amount: 20000, date: "3/16/2022" },
-  { id: 9, name: "Jordan", amount: 30, date: "3/16/2022" }
+  { id: 9, name: "Jordan", amount: 500, date: "3/16/2022" },
+  { id: 10, name: "Benard", amount: 500, date: "3/16/2022" },
+  { id: 11, name: "Cecelia", amount: 200, date: "3/16/2022" },
+  { id: 12, name: "Dennis", amount: 20000, date: "3/16/2022" },
+  { id: 13, name: "WaiYi", amount: 500, date: "3/16/2022" },
+  { id: 14, name: "Cecelia", amount: 200, date: "3/16/2022" },
+  { id: 15, name: "Dennis", amount: 20000, date: "3/16/2022" },
+  { id: 16, name: "Jordan", amount: 30, date: "3/16/2022" },
+  { id: 17, name: "Jordan", amount: 500, date: "3/16/2022" },
+  { id: 18, name: "Benard", amount: 500, date: "3/16/2022" },
+  { id: 19, name: "Cecelia", amount: 200, date: "3/16/2022" },
+  { id: 20, name: "Dennis", amount: 20000, date: "3/16/2022" },
+  { id: 21, name: "WaiYi", amount: 500, date: "3/16/2022" },
+  { id: 22, name: "Cecelia", amount: 200, date: "3/16/2022" },
+  { id: 23, name: "Dennis", amount: 20000, date: "3/16/2022" },
+  { id: 24, name: "Jordan", amount: 30, date: "3/16/2022" },
+  { id: 25, name: "Jordan", amount: 30, date: "3/16/2022" }
 ];
 const DonorCount = DummyDonor.length;
 const uniqueDonor = [];
@@ -68,22 +85,6 @@ class DashboardScreen extends Component {
     active: 0
   }
 
-  renderSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: "100%",
-          backgroundColor: "#000",
-        }}
-      />
-    );
-  };
-  //handling onPress action  
-  getListViewItem = (item) => {
-    Alert.alert(item.key);
-  }
-
   constructor(props) {
     super(props);
     this.state = { DummyDonor };
@@ -99,122 +100,122 @@ class DashboardScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ImageBackground
-          source={backgroundimage}
-          resizeMode="cover"
-          style={styles.backgroundimage}>
-          <Image
-            source={headerimage}
-            style={styles.headerimage} />
-          <View style={styles.slider}>
-            <ScrollView
-              pagingEnabled
-              horizontal
-              onScroll={this.change}
-              showsHorizontalScrollIndicator={false}
-              style={{ width, height }}>
-              {
-                bannerimages.map((image, index) => (
-                  <Image
-                    key={index}
-                    source={{ uri: image }}
-                    style={styles.bannerimage} />
-                ))
-              }
-            </ScrollView>
-            <View style={styles.pagination}>
-              {
-                bannerimages.map((i, k) => (
-                  <Text key={k} style={k == this.state.active ? styles.pagingActivetext : styles.pagingtext}>⬤</Text>
-                ))
-              }
-            </View>
+        <Image
+          source={headerimage}
+          style={styles.headerimage} />
+        <View style={styles.slider}>
+          <ScrollView
+            pagingEnabled
+            horizontal
+            onScroll={this.change}
+            showsHorizontalScrollIndicator={false}
+            style={{ width, height }}>
+            {
+              bannerimages.map((image, index) => (
+                <Image
+                  key={index}
+                  source={{ uri: image }}
+                  style={styles.bannerimage} />
+              ))
+            }
+          </ScrollView>
+          <View style={styles.pagination}>
+            {
+              bannerimages.map((i, k) => (
+                <Text key={k} style={k == this.state.active ? styles.pagingActivetext : styles.pagingtext}>⬤</Text>
+              ))
+            }
           </View>
+        </View>
 
-          <View style={styles.dashboardcontentA}>
-            <ImageBackground
-              source={dashboardbg}
-              resizeMode="cover"
-              style={styles.dashboardbgA}>
-              <Text style={styles.header_1}>JKM DASHBOARD</Text>
-              <View>
-                <ScrollView
-                  horizontal={true}
-                  showsHorizontalScrollIndicator={false}
-                >
-
-                  <View backgroundColor="orange" style={styles.dashboardA_Card}>
-                    <View>
-                      <Text style={styles.dashboardA_Card_TextHeader}>Total Donor</Text>
-                      <Text style={styles.dashboardA_Card_Text}>{uniqueDonorCount}</Text>
-                    </View>
-                  </View>
-                  <View backgroundColor="purple" style={styles.dashboardA_Card}>
-                    <Text style={styles.dashboardA_Card_TextHeader}>Donor Retention</Text>
-                    <Text style={styles.dashboardA_Card_Text}>{DonorRetention} %</Text>
-                  </View>
-                  <View backgroundColor="green" style={styles.dashboardA_Card}>
-                    <Text style={styles.dashboardA_Card_TextHeader}>Total Recipient</Text>
-                    <Text style={styles.dashboardA_Card_Text}>{RecipientCount}</Text>
-                  </View>
-                  <View backgroundColor="blue" style={styles.dashboardA_Card}>
-                    <Text
-                      style={styles.dashboardA_Card_TextHeader}
-                      onPress={() => Linking.openURL('https://www.jkm.gov.my/jkm/index.php')}>
-                      More details
-                    </Text>
-                    <Text style={styles.dashboardA_Card_Text}
-                      onPress={() => Linking.openURL('https://www.jkm.gov.my/jkm/index.php')}>
-                      ➤
-                    </Text>
-                  </View>
-                </ScrollView>
-              </View>
-            </ImageBackground>
-          </View>
-
-          <View style={styles.dashboardcontentB}>
-            <ImageBackground
-              source={dashboardbg}
-              resizeMode="cover"
-              style={styles.dashboardbgB}>
-              <Text style={styles.header_2}>DONATION ANALYSIS</Text>
-
+        <View style={styles.dashboardcontentA}>
+          <ImageBackground
+            source={dashboardbg}
+            resizeMode="cover"
+            style={styles.dashboardbgA}>
+            <Text style={styles.header_1}>JKM DASHBOARD</Text>
+            <View>
               <ScrollView
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
               >
-                <View style={styles.dashboardB_Card}>
+
+                <View backgroundColor="orange" style={styles.dashboardA_Card}>
+
                   <View>
                     <Text style={styles.dashboardA_Card_TextHeader}>Total Donor</Text>
-                    <Image
-                      source={dashboardPartB_1}
-                      style={styles.image} />
+                    <Text style={styles.dashboardA_Card_Text1}>Last updated:</Text>
+                    <Text style={styles.dashboardA_Card_Text1}>{new Date().toDateString()}</Text>
+                    <Text style={styles.dashboardA_Card_Text2}>{uniqueDonorCount}</Text>
                   </View>
                 </View>
-                <View style={styles.dashboardB_Card}>
+                <View backgroundColor="purple" style={styles.dashboardA_Card}>
                   <Text style={styles.dashboardA_Card_TextHeader}>Donor Retention</Text>
-                  <Text style={styles.dashboardA_Card_Text}>{DonorRetention} %</Text>
+                  <Text style={styles.dashboardA_Card_Text1}>Last updated:</Text>
+                  <Text style={styles.dashboardA_Card_Text1}>{new Date().toDateString()}</Text>
+                  <Text style={styles.dashboardA_Card_Text2}>{DonorRetention} %</Text>
+                </View>
+                <View backgroundColor="green" style={styles.dashboardA_Card}>
+                  <Text style={styles.dashboardA_Card_TextHeader}>Total Recipient</Text>
+                  <Text style={styles.dashboardA_Card_Text1}>Last updated:</Text>
+                  <Text style={styles.dashboardA_Card_Text1}>{new Date().toDateString()}</Text>
+                  <Text style={styles.dashboardA_Card_Text2}>{RecipientCount}</Text>
+                </View>
+                <View backgroundColor="blue" style={styles.dashboardA_Card}>
+                  <Text
+                    style={styles.dashboardA_Card_TextHeader}
+                    onPress={() => Linking.openURL('https://www.jkm.gov.my/jkm/index.php')}>
+                    More details
+                  </Text>
+                  <Text style={styles.dashboardA_Card_Text2}
+                    onPress={() => Linking.openURL('https://www.jkm.gov.my/jkm/index.php')}>
+                    ➤
+                  </Text>
                 </View>
               </ScrollView>
+            </View>
+          </ImageBackground>
+        </View>
 
-              <View style={styles.container}>
-                <FlatList
-                  data={DummyDonor}
-                  renderItem={({ item }) =>
-                    <Text style={styles.item}
-                      onPress={this.getListViewItem.bind(this, item)}>{item.id}</Text>}
-                  ItemSeparatorComponent={this.renderSeparator}
-                />
+        <View style={styles.dashboardcontentB}>
+          <ImageBackground
+            source={dashboardbg}
+            resizeMode="cover"
+            style={styles.dashboardbgB}>
+            <Text style={styles.header_2}>DONATION ANALYSIS</Text>
+
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              <View style={styles.dashboardB_Card}>
+                <Text style={styles.dashboardB_Card_TextHeader}>Donation Statistic</Text>
+                <Image
+                  source={dashboardPartB_1} />
               </View>
+              <View style={styles.dashboardB_Card}>
+                <View>
+                  <Text style={styles.dashboardB_Card_TextHeader}>Donation Dispersion By Aspect</Text>
+                  <Image
+                    source={dashboardPartB_1} />
+                </View>
+              </View>
+              
+              <View style={styles.dashboardB_Card}>
+                <View>
+                  <Text style={styles.dashboardB_Card_TextHeader}>Donation Dispersion By State</Text>
+                  <Image
+                    source={dashboardPartB_1} />
+                </View>
+              </View>
+            </ScrollView>
 
-              {this.state.DummyDonor.map((item, index) => (
-                <Text>Hello, {item.id} from {item.name}!</Text>
-              ))}
+            {/* {this.state.DummyDonor.map((item, index) => (
+              <Text>Hello, {item.id} from {item.name}!</Text>
+            ))} */}
 
-            </ImageBackground>
-          </View>
-        </ImageBackground>
+          </ImageBackground>
+        </View>
       </View>
     );
   }
@@ -252,35 +253,48 @@ const styles = StyleSheet.create({
     marginRight: 8,
     flex: 1,
     width: 155,
-    height: 80,
+    height: 100,
     resizeMode: "contain",
     opacity: 1,
     borderRadius: 15,
     alignContent: "center"
   },
   dashboardB_Card: {
-    marginLeft: 8,
-    marginRight: 8,
     flex: 1,
-    width: 300,
-    height: 200,
-    resizeMode: "contain",
     opacity: 1,
-    alignContent: "center"
+    width: 355,
+    height: 250,
+    marginLeft: 15,
+    resizeMode: "contain",
+    alignContent: "center",
+    backgroundColor: "#FFF"
   },
   dashboardA_Card_TextHeader: {
     marginTop: 5,
     color: "#FFF",
     fontSize: 18,
+    lineHeight: 20,
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  dashboardA_Card_Text1: {
+    color: "#FFB",
+    fontSize: 10,
+    textAlign: "center"
+  },
+  dashboardA_Card_Text2: {
+    marginTop: 5,
+    color: "#FFB",
+    fontSize: 16,
     lineHeight: 30,
     fontWeight: "bold",
     textAlign: "center"
   },
-  dashboardA_Card_Text: {
+  dashboardB_Card_TextHeader: {
     marginTop: 5,
-    color: "#FFB",
+    color: "grey",
     fontSize: 18,
-    lineHeight: 30,
+    lineHeight: 20,
     fontWeight: "bold",
     textAlign: "center"
   },
@@ -307,12 +321,6 @@ const styles = StyleSheet.create({
     height,
     resizeMode: "contain",
     marginTop: -25
-  },
-  image: {
-    width: "100%",
-    height: 200,
-    resizeMode: "contain",
-    opacity: 1
   },
   pagination: {
     flexDirection: "row",
