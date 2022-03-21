@@ -12,6 +12,7 @@ import FundHelpScreen from './src/modules/FundHelp/FundHelpScreen';
 import ProfileScreen from './src/modules/Profile/ProfileScreen';
 
 import Donate from './src/modules/Donation/Donate';
+import DonateMoney from './src/modules/Donation/DonateMoney';
 
 
 import { LogBox } from 'react-native';
@@ -112,6 +113,10 @@ function App() {
         <Stack.Screen
           name="Donate"
           component={Donate}
+        />
+        <Stack.Screen
+          name="Donate Money"
+          component={DonateMoney}
         />
 
 
