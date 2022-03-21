@@ -7,12 +7,16 @@ import { createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { createStackNavigator} from '@react-navigation/stack';
 
 import DashboardScreen from './src/modules/Dashboard/DashboardScreen';
+
 import DonationScreen from './src/modules/Donation/DonationScreen';
+import Donate from './src/modules/Donation/Donate';
+
 import FundHelpScreen from './src/modules/FundHelp/FundHelpScreen';
+
 import ProfileScreen from './src/modules/Profile/ProfileScreen';
 
-import Donate from './src/modules/Donation/Donate';
-import DonateMoney from './src/modules/Donation/DonateMoney';
+
+
 
 
 import { LogBox } from 'react-native';
@@ -114,11 +118,7 @@ function App() {
           name="Donate"
           component={Donate}
         />
-        <Stack.Screen
-          name="Donate Money"
-          component={DonateMoney}
-        />
-
+       
 
       </Stack.Navigator>
     </NavigationContainer>
