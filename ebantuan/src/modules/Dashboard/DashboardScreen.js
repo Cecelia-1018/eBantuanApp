@@ -4,8 +4,6 @@ import React, { Component } from 'react';
 import { View, Image, Text, ImageBackground, StyleSheet, ScrollView, Dimensions, Linking } from 'react-native';
 import { FlatList, Alert } from 'react-native-gesture-handler';
 
-
-
 const dashboardPartB_1 = { uri: "https://nonprofithub.org/wp-content/uploads/2018/11/blog-chart.png" }
 const dashboardPartB_2 = { uri: "https://www.savethechildren.org/content/dam/usa/reports/annual-report/annual-report/2020-annual-report-financials-giving-helps-rec.png/_jcr_content/renditions/cq5dam.thumbnail.768.768.png')" }
 const donationHistory = { uri: "require('./profileDonationHistory.png')" }
