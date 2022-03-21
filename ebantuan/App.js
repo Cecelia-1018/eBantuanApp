@@ -11,6 +11,9 @@ import DonationScreen from './src/modules/Donation/DonationScreen';
 import FundHelpScreen from './src/modules/FundHelp/FundHelpScreen';
 import ProfileScreen from './src/modules/Profile/ProfileScreen';
 
+import Donate from './src/modules/Donation/Donate';
+
+
 import { LogBox } from 'react-native';
 
 LogBox.ignoreLogs([
@@ -103,6 +106,12 @@ function App() {
           options={{
             headerShown: false,
           }}
+        />
+
+        {/* add additional screen here */}
+        <Stack.Screen
+          name="Donate"
+          component={Donate}
         />
 
 
