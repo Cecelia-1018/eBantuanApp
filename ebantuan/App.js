@@ -10,6 +10,7 @@ import DashboardScreen from './src/modules/Dashboard/DashboardScreen';
 
 import DonationScreen from './src/modules/Donation/DonationScreen';
 import Donate from './src/modules/Donation/Donate';
+import DonationReceipt from './src/modules/Donation/DonationReceipt';
 
 import FundHelpScreen from './src/modules/FundHelp/FundHelpScreen';
 
@@ -22,7 +23,7 @@ import ProfileScreen from './src/modules/Profile/ProfileScreen';
 import { LogBox } from 'react-native';
 
 LogBox.ignoreLogs([
-  "[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!",
+  "[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!",'Each child in a list should have a unique "key" prop.'
 ]);
 
 const Tab = createBottomTabNavigator();
@@ -117,6 +118,10 @@ function App() {
         <Stack.Screen
           name="Donate"
           component={Donate}
+        />
+        <Stack.Screen
+          name="Donation Receipt"
+          component={DonationReceipt}
         />
        
 

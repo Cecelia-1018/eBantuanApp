@@ -1,14 +1,79 @@
-import React, { Component } from 'react';
-import { Text, View,StyleSheet, Image } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
+import React, {useState, useEffect, Component } from 'react';
+import { Text, View,StyleSheet, Image, Alert} from 'react-native';
+import { TextInput, Button,Snackbar } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 
 function Donate({navigation}) {
+    
     const [amount, setAmount] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [cardnum, setCardNum] = React.useState('');
     const [carddate, setCardDate] = React.useState('');
     const [cardcvv, setCardCvv] = React.useState('');
+    
+    
+    //firebase
+    const ref = firestore().collection('Donations');
+
+     //set date time for each forum post
+  const [donateDate, setDate] = useState('');
+  const [donateTime, setTime] = useState('');
+
+  useEffect(() => {
+    const d = new Date()
+    var date = d.toLocaleDateString();
+    var time = d.toLocaleTimeString();
+    
+    setDate(date);
+    setTime(time);
+    
+  }, []);
+
+    async function addDonation() {
+    
+        if (!amount.trim()) {
+          alert('Please enter your amount.');
+          return;
+        } else if (!email.trim()) {
+          alert('Please enter your email.');
+          return;
+        }else if (!cardnum.trim()) {
+            alert('Please enter your card number.');
+            return;
+          }else if (!carddate.trim()) {
+            alert('Please enter your card date, MM/YY.');
+            return;
+          }else if (!cardcvv.trim()) {
+            alert('Please enter your card cvv.');
+            return;
+        } else {
+          await ref
+            .add({
+              //add id here
+              amount: amount,
+              email: email,
+              cardnum: cardnum,
+              carddate: carddate,
+              cardcvv: cardcvv,
+              date: donateDate,
+              time: donateTime,
+            })
+            .then(() => {
+              console.log('Donation added!');
+            });
+          
+            setAmount('');
+            setEmail('');
+            setCardNum('');
+            setCardDate('');
+            setCardCvv('');
+          
+            alert('Donation Successfully! The new record saved at My Donate History');
+          navigation.navigate('Donation');
+        }
+      
+    }
+  
     
     return (
       <View style={{
@@ -75,7 +140,9 @@ function Donate({navigation}) {
         activeOutlineColor="#045de9"
         keyboardType="numeric"
       />
-        <Button icon={require('./assets/donation.png')} style={styles.button} mode="contained" color="#045de9" onPress={() => navigation.navigate('Donation')}>
+        <Button icon={require('./assets/donation.png')} style={styles.button} mode="contained" color="#045de9"   onPress={() => {
+            addDonation();
+          }}>
           Donate Now
         </Button>
       
