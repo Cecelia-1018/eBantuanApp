@@ -67,7 +67,7 @@ function DonateMoney() {
           <Text style={styles.title}>Donate Amount</Text>
           <Title style={styles.title}>RM 150.00</Title>
         </View>
-        <View style={{flexDirection: 'row', marginLeft: 80}}>
+        <View style={{flexDirection: 'row', marginLeft: 150}}>
           <Image
             style={styles.image}
             source={{
@@ -80,17 +80,17 @@ function DonateMoney() {
               uri: 'https://cdn.vox-cdn.com/thumbor/UKSLdttYoIK2bv1gd231rqL4eiQ=/1400x788/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/13674554/Mastercard_logo.jpg',
             }}
           />
-          <Image
+          {/* <Image
             style={styles.image2}
             source={{
               uri: 'https://cdn-icons-png.flaticon.com/512/5968/5968382.png',
             }}
-          />
+          /> */}
         </View>
       </View>
       <Tab.Navigator>
         <Tab.Screen name="Credit/Debit Card" component={CreditCard} />
-        <Tab.Screen name="Stripe Pay" component={StripePay} />
+        {/* <Tab.Screen name="Stripe Pay" component={StripePay} /> */}
       </Tab.Navigator>
     </>
   );
