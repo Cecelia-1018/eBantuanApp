@@ -1,18 +1,20 @@
 /* eslint-disable prettier/prettier */
 
 import React, { Component } from 'react';
-import { View, Image, Text, ImageBackground, StyleSheet, ScrollView, Dimensions, Linking } from 'react-native';
-import { FlatList, Alert } from 'react-native-gesture-handler';
-
-
+import { View, Image, Text, Button, StyleSheet, ScrollView, Dimensions, Linking } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart
+} from "react-native-chart-kit";
+import firestore from '@react-native-firebase/firestore';
+import { black } from 'react-native-paper/lib/typescript/styles/colors';
 
 const dashboardPartB_1 = { uri: "https://nonprofithub.org/wp-content/uploads/2018/11/blog-chart.png" }
-const dashboardPartB_2 = { uri: "https://www.savethechildren.org/content/dam/usa/reports/annual-report/annual-report/2020-annual-report-financials-giving-helps-rec.png/_jcr_content/renditions/cq5dam.thumbnail.768.768.png')" }
-const donationHistory = { uri: "require('./profileDonationHistory.png')" }
-
-const backgroundimage = { uri: "https://www.ilovewallpaper.co.uk/images/athena-floral-wallpaper-white-off-white-fd40395-p4464-10666_image.jpg" };
-const headerimage = { uri: "https://www.jkm.gov.my/jkm/uploads/images/home_icon/header_bm.png" };
-const dashboardbg = { uri: "https://cdn3.vectorstock.com/i/1000x1000/03/87/pale-blue-background-with-stains-vector-17790387.jpg" };
 const bannerimages = [
   "https://www.jkm.gov.my/jkm/uploads/images/home_slider/Banner-Helpdesk-Portal.png",
   "https://www.jkm.gov.my/jkm/uploads/images/home_slider/website-01.jpg",
@@ -23,8 +25,22 @@ const bannerimages = [
 const { width } = Dimensions.get("window");
 const height = width * 0.4;
 const bannerheight = width * 0.28;
-const dashboardPartA = width * 0.4;
-const dashboardPartB = width * 0.88;
+const dashboardPartA = width * 0.55;
+const dashboardPartB = width * 1.25;
+const dashboardPartB_card_h = dashboardPartB * 0.80;
+const dashboardPartB_card_w = dashboardPartB * 0.74;
+const chart_h = dashboardPartB_card_h * 0.70;
+const chart_w = dashboardPartB_card_w * 1.00;
+const chartConfig = {
+  backgroundGradientFrom: "white",
+  backgroundGradientFromOpacity: 0,
+  backgroundGradientTo: "white",
+  backgroundGradientToOpacity: 0.5,
+  color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+  strokeWidth: 2, // optional, default 3
+  barPercentage: 0.5,
+  useShadowColorFromDataset: false // optional
+};
 const DummyDonor = [
   { id: 1, name: "Andy", amount: 1000, date: "3/16/2022" },
   { id: 2, name: "Jordan", amount: 500, date: "3/16/2022" },
@@ -59,6 +75,30 @@ DummyDonor.map(donor => {
     uniqueDonor.push(donor.name)
   }
 });
+
+// each value represents a goal ring in Progress chart
+const categorydata = {
+  labels: ["Education", "Health", "Disaster", "OKU", "Elder", "Orphan"], // optional
+  data: [0.3, 0.3, 0.3, 0.04, 0.03, 0.03]
+};
+// each value represents a goal ring in Progress chart
+const statedata = [
+  {
+    name: "% Sabah",
+    population: 23,
+    color: "rgba(131, 167, 234, 1)",
+    legendFontColor: "#7F7F7F",
+    legendFontSize: 15
+  },
+  {
+    name: "% Sarawak",
+    population: 13,
+    color: "#F00",
+    legendFontColor: "#7F7F7F",
+    legendFontSize: 15
+  }
+];
+
 const uniqueDonorCount = uniqueDonor.length;
 var DonorRetention = (uniqueDonorCount / DonorCount * 100).toFixed(0);;
 
@@ -100,10 +140,10 @@ class DashboardScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image
+        {/* <Image
           source={headerimage}
-          style={styles.headerimage} />
-        <View style={styles.slider}>
+          style={styles.headerimage} /> */}
+        {/* <View style={styles.slider}>
           <ScrollView
             pagingEnabled
             horizontal
@@ -126,95 +166,144 @@ class DashboardScreen extends Component {
               ))
             }
           </View>
-        </View>
+        </View> */}
 
-        <View style={styles.dashboardcontentA}>
-          <ImageBackground
-            source={dashboardbg}
-            resizeMode="cover"
-            style={styles.dashboardbgA}>
-            <Text style={styles.header_1}>JKM DASHBOARD</Text>
-            <View>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-              >
-
-                <View backgroundColor="orange" style={styles.dashboardA_Card}>
-
-                  <View>
-                    <Text style={styles.dashboardA_Card_TextHeader}>Total Donor</Text>
-                    <Text style={styles.dashboardA_Card_Text1}>Last updated:</Text>
-                    <Text style={styles.dashboardA_Card_Text1}>{new Date().toDateString()}</Text>
-                    <Text style={styles.dashboardA_Card_Text2}>{uniqueDonorCount}</Text>
-                  </View>
-                </View>
-                <View backgroundColor="purple" style={styles.dashboardA_Card}>
-                  <Text style={styles.dashboardA_Card_TextHeader}>Donor Retention</Text>
-                  <Text style={styles.dashboardA_Card_Text1}>Last updated:</Text>
-                  <Text style={styles.dashboardA_Card_Text1}>{new Date().toDateString()}</Text>
-                  <Text style={styles.dashboardA_Card_Text2}>{DonorRetention} %</Text>
-                </View>
-                <View backgroundColor="green" style={styles.dashboardA_Card}>
-                  <Text style={styles.dashboardA_Card_TextHeader}>Total Recipient</Text>
-                  <Text style={styles.dashboardA_Card_Text1}>Last updated:</Text>
-                  <Text style={styles.dashboardA_Card_Text1}>{new Date().toDateString()}</Text>
-                  <Text style={styles.dashboardA_Card_Text2}>{RecipientCount}</Text>
-                </View>
-                <View backgroundColor="blue" style={styles.dashboardA_Card}>
-                  <Text
-                    style={styles.dashboardA_Card_TextHeader}
-                    onPress={() => Linking.openURL('https://www.jkm.gov.my/jkm/index.php')}>
-                    More details
-                  </Text>
-                  <Text style={styles.dashboardA_Card_Text2}
-                    onPress={() => Linking.openURL('https://www.jkm.gov.my/jkm/index.php')}>
-                    ➤
-                  </Text>
-                </View>
-              </ScrollView>
+        <LinearGradient
+          colors={['#0072ff', '#00c6ff']}
+          style={styles.dashboardcontentA}
+          start={{ x: 0, y: 0 }}>
+          <Text style={styles.header_1}>JKM DASHBOARD</Text>
+          <Text style={styles.Text1}>Last updated: {new Date().toDateString()}</Text>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          >
+            <View backgroundColor="blue" style={styles.dashboardA_Card}>
+              <View>
+                <Text style={styles.dashboardA_Card_TextHeader}>Total Donor</Text>
+                <Text style={styles.dashboardA_Card_Text1}>{uniqueDonorCount}</Text>
+              </View>
             </View>
-          </ImageBackground>
-        </View>
+            <View backgroundColor="red" style={styles.dashboardA_Card}>
+              <Text style={styles.dashboardA_Card_TextHeader}>Donor Retention</Text>
+              <Text style={styles.dashboardA_Card_Text1}>{DonorRetention} %</Text>
+            </View>
+            <View backgroundColor="#52c234" style={styles.dashboardA_Card}>
+              <Text style={styles.dashboardA_Card_TextHeader}>Total Receipt</Text>
+              <Text style={styles.dashboardA_Card_Text1}>{RecipientCount}</Text>
+            </View>
+            <View backgroundColor="orange" style={styles.dashboardA_Card}>
+              <Text
+                style={styles.dashboardA_Card_TextHeader}
+                onPress={() => Linking.openURL('https://www.jkm.gov.my/jkm/index.php')}>
+                More details
+              </Text>
+              <Text style={styles.dashboardA_Card_Text1}
+                onPress={() => Linking.openURL('https://www.jkm.gov.my/jkm/index.php')}>
+                ➤
+              </Text>
+            </View>
+          </ScrollView>
+        </LinearGradient>
 
         <View style={styles.dashboardcontentB}>
-          <ImageBackground
-            source={dashboardbg}
-            resizeMode="cover"
-            style={styles.dashboardbgB}>
-            <Text style={styles.header_2}>DONATION ANALYSIS</Text>
+          <Text style={styles.header_2}>DONATION ANALYSIS</Text>
 
-            <ScrollView
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            >
-              <View style={styles.dashboardB_Card}>
-                <Text style={styles.dashboardB_Card_TextHeader}>Donation Statistic</Text>
-                <Image
-                  source={dashboardPartB_1} />
+          <ScrollView
+            horizontal={false}
+            showsVerticalScrollIndicator={false}
+            minimumZoomScale={1}
+            maximumZoomScale={5}
+          >
+            <View style={styles.dashboardB_Card}>
+              <Text style={styles.dashboardB_Card_TextHeader}>Donation Statistic</Text>
+              <Text style={styles.dashboardB_Card_Text1}>Last updated: {new Date().toDateString()}</Text>
+              <View>
+                <LineChart
+                  data={{
+                    labels: ["January", "February", "March", "April"],
+                    datasets: [
+                      {
+                        data: [
+                          Math.random() * 10000,
+                          Math.random() * 10000,
+                          Math.random() * 10000,
+                          Math.random() * 10000,
+                        ]
+                      }
+                    ],
+                    legend: ["Amount(RM)"]
+                  }}
+                  width={chart_w}
+                  height={chart_h}
+                  yAxisInterval={1}
+                  chartConfig={{
+                    backgroundColor: "#e26a00",
+                    backgroundGradientFrom: "#fb8c00",
+                    backgroundGradientTo: "#ffa726",
+                    decimalPlaces: 2,
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    style: {
+                      borderRadius: 16
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#ffddab"
+                    }
+                  }}
+                  bezier
+                  style={styles.chart}
+                />
               </View>
-              <View style={styles.dashboardB_Card}>
-                <View>
-                  <Text style={styles.dashboardB_Card_TextHeader}>Donation Dispersion By Aspect</Text>
-                  <Image
-                    source={dashboardPartB_1} />
-                </View>
+            </View>
+            <View style={styles.dashboardB_Card}>
+              <View>
+                <Text style={styles.dashboardB_Card_TextHeader}>Donation Dispersion By Aspect</Text>
+                <Text style={styles.dashboardB_Card_Text1}>Last updated: {new Date().toDateString()}</Text>
+                <ProgressChart
+                  data={categorydata}
+                  width={chart_w}
+                  height={chart_h * 1.1}
+                  strokeWidth={12}
+                  radius={30}
+                  chartConfig={chartConfig}
+                  hideLegend={false}
+                />
               </View>
-              
-              <View style={styles.dashboardB_Card}>
-                <View>
-                  <Text style={styles.dashboardB_Card_TextHeader}>Donation Dispersion By State</Text>
-                  <Image
-                    source={dashboardPartB_1} />
-                </View>
-              </View>
-            </ScrollView>
+            </View>
 
-            {/* {this.state.DummyDonor.map((item, index) => (
-              <Text>Hello, {item.id} from {item.name}!</Text>
-            ))} */}
+            <View style={styles.dashboardB_Card}>
+              <View>
+                <Text style={styles.dashboardB_Card_TextHeader}>Donation Dispersion By State</Text>
+                <Text style={styles.dashboardB_Card_Text1}>Last updated: {new Date().toDateString()}</Text>
+                <PieChart
+                  data={statedata}
+                  width={chart_w}
+                  height={chart_h}
+                  chartConfig={chartConfig}
+                  accessor={"population"}
+                  backgroundColor={"transparent"}
+                  center={[35, 0]}
+                  absolute
+                />
+              </View>
+            </View>
 
-          </ImageBackground>
+            <View style={styles.dashboardB_Card}>
+              <View>
+                <Text style={styles.dashboardB_Card_TextHeader}>For Testing</Text>
+                <Text style={styles.dashboardB_Card_Text1}>Last updated: {new Date().toDateString()}</Text>
+                {this.state.DummyDonor.map((item, index) => (
+                  <Text>Hello, {item.id} from {item.name}!</Text>
+                ))}
+              </View>
+            </View>
+          </ScrollView>
+
+
+
         </View>
       </View>
     );
@@ -231,10 +320,10 @@ const styles = StyleSheet.create({
     height: bannerheight
   },
   dashboardcontentA: {
-    marginTop: 5,
-    marginBottom: 5,
     width,
-    height: dashboardPartA
+    height: dashboardPartA,
+    justifyContent: 'center',
+    padding: 10,
   },
   dashboardcontentB: {
     marginTop: 5,
@@ -242,13 +331,8 @@ const styles = StyleSheet.create({
     width,
     height: dashboardPartB
   },
-  dashboardimage: {
-    width: "100%",
-    height: 300,
-    resizeMode: "contain",
-    opacity: 1
-  },
   dashboardA_Card: {
+    marginTop: 8,
     marginLeft: 8,
     marginRight: 8,
     flex: 1,
@@ -257,34 +341,42 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     opacity: 1,
     borderRadius: 15,
-    alignContent: "center"
+    alignContent: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5
   },
   dashboardB_Card: {
-    flex: 1,
+    marginTop: 6,
+    marginBottom: 6,
     opacity: 1,
-    width: 355,
-    height: 250,
+    width: dashboardPartB_card_w,
+    height: dashboardPartB_card_h,
     marginLeft: 15,
     resizeMode: "contain",
     alignContent: "center",
-    backgroundColor: "#FFF"
+    backgroundColor: "#FFF",
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5
   },
   dashboardA_Card_TextHeader: {
     marginTop: 5,
-    color: "#FFF",
+    color: "white",
     fontSize: 18,
     lineHeight: 20,
     fontWeight: "bold",
     textAlign: "center"
   },
   dashboardA_Card_Text1: {
-    color: "#FFB",
-    fontSize: 10,
-    textAlign: "center"
-  },
-  dashboardA_Card_Text2: {
     marginTop: 5,
-    color: "#FFB",
+    color: "white",
     fontSize: 16,
     lineHeight: 30,
     fontWeight: "bold",
@@ -292,29 +384,24 @@ const styles = StyleSheet.create({
   },
   dashboardB_Card_TextHeader: {
     marginTop: 5,
-    color: "grey",
+    color: "black",
     fontSize: 18,
     lineHeight: 20,
     fontWeight: "bold",
     textAlign: "center"
   },
-  dashboardbgA: {
-    flex: 1,
-    opacity: 0.8
+  dashboardB_Card_Text1: {
+    color: "black",
+    fontSize: 14,
+    lineHeight: 30,
+    textAlign: "center"
   },
-  dashboardbgB: {
-    flex: 1,
-    opacity: 0.4
-  },
-  backgroundimage: {
-    flex: 1
-  },
-  headerimage: {
-    marginTop: -25,
-    marginBottom: -25,
-    width: "100%",
-    height: 100,
-    resizeMode: "contain"
+  chart: {
+    margin: 10,
+    borderRadius: 16,
+    textAlign: "center",
+    alignContent: "center",
+    justifyContent: 'center'
   },
   bannerimage: {
     width,
@@ -340,21 +427,27 @@ const styles = StyleSheet.create({
   },
   header_1: {
     marginLeft: 15,
-    color: "#888",
-    fontSize: 25,
+    color: "white",
+    fontSize: 26,
     lineHeight: 50,
     fontWeight: "bold",
     textAlign: "left",
   },
+  Text1: {
+    marginLeft: 15,
+    marginTop: 0,
+    marginBottom: 10,
+    color: "white",
+    fontSize: 15
+  },
   header_2: {
     marginLeft: 15,
-    color: "#899",
+    color: "black",
     fontSize: 20,
     lineHeight: 40,
     fontWeight: "bold",
     textAlign: "left",
-  },
-  head: { height: 40, backgroundColor: '#f1f8ff' }
+  }
 });
 
 export default DashboardScreen;
