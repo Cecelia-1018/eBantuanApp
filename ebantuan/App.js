@@ -16,11 +16,9 @@ import FundHelpScreen from './src/modules/FundHelp/FundHelpScreen';
 
 import ProfileScreen from './src/modules/Profile/ProfileScreen';
 
-
-
-
-
 import { LogBox } from 'react-native';
+
+//Start
 
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!",'Each child in a list should have a unique "key" prop.'
