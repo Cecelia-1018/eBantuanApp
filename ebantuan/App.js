@@ -23,8 +23,7 @@ import {LogBox} from 'react-native';
 //Start add
 
 LogBox.ignoreLogs([
-  "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
-  'Each child in a list should have a unique "key" prop.',
+  "[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!",'Each child in a list should have a unique "key" prop.','Deprecated Gradle features were used in this build, making it incompatible with Gradle 8.0.'
 ]);
 
 const Tab = createBottomTabNavigator();
