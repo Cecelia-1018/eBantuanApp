@@ -1,10 +1,11 @@
 import 'react-native-gesture-handler'; //must be at the top
 import * as React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import { createStackNavigator} from '@react-navigation/stack';
+import {View, Text, StyleSheet, Image} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
+import {firebase} from '@react-native-firebase/auth';
 
 import DashboardScreen from './src/modules/Dashboard/DashboardScreen';
 
@@ -14,14 +15,16 @@ import DonationReceipt from './src/modules/Donation/DonationReceipt';
 
 import FundHelpScreen from './src/modules/FundHelp/FundHelpScreen';
 
+import MainSign from './src/modules/Profile/MainSign';
 import ProfileScreen from './src/modules/Profile/ProfileScreen';
 
-import { LogBox } from 'react-native';
+import {LogBox} from 'react-native';
 
 //Start add
 
 LogBox.ignoreLogs([
-  "[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!",'Each child in a list should have a unique "key" prop.'
+  "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
+  'Each child in a list should have a unique "key" prop.',
 ]);
 
 const Tab = createBottomTabNavigator();
@@ -34,7 +37,6 @@ function HomeTabs() {
         tabBarActiveTintColor: '#000000',
       }}
       initialRouteName="Dashboard">
-    
       <Tab.Screen
         name="Donation"
         component={DonationScreen}
@@ -43,9 +45,9 @@ function HomeTabs() {
           tabBarLabel: 'Donation',
           tabBarIcon: ({color, size}) => (
             <Image
-            style={styles.icon2}
-            source={require('./assets/donation.png')}
-          />
+              style={styles.icon2}
+              source={require('./assets/donation.png')}
+            />
           ),
         }}
       />
@@ -57,9 +59,11 @@ function HomeTabs() {
           tabBarLabel: 'Dashboard',
           tabBarIcon: ({color, size}) => (
             <Image
-            style={styles.icon}
-            source={{uri: 'https://cdn-icons-png.flaticon.com/512/1828/1828673.png'}}
-          />
+              style={styles.icon}
+              source={{
+                uri: 'https://cdn-icons-png.flaticon.com/512/1828/1828673.png',
+              }}
+            />
           ),
         }}
       />
@@ -71,12 +75,11 @@ function HomeTabs() {
           tabBarLabel: 'Fund Help',
           tabBarIcon: ({color, size}) => (
             <Image
-            style={styles.icon2}
-            source={require('./assets/fundhelp.png')}
-          />
+              style={styles.icon2}
+              source={require('./assets/fundhelp.png')}
+            />
           ),
         }}
-     
       />
       <Tab.Screen
         name="Profile"
@@ -86,9 +89,9 @@ function HomeTabs() {
           tabBarLabel: 'Profile',
           tabBarIcon: ({color, size}) => (
             <Image
-            style={styles.icon2}
-            source={require('./assets/profile.png')}
-          />
+              style={styles.icon2}
+              source={require('./assets/profile.png')}
+            />
           ),
         }}
       />
@@ -97,9 +100,23 @@ function HomeTabs() {
 }
 
 function App() {
+  const user = firebase.auth().currentUser;
+  if (!user) {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+          initialRouteName="eBantuan">
+          <Stack.Screen name="eBantuan" component={MainSign} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
   return (
     <NavigationContainer>
-       <Stack.Navigator
+      <Stack.Navigator
         screenOptions={{
           cardStyle: {backgroundColor: '#fff'},
         }}
@@ -113,16 +130,8 @@ function App() {
         />
 
         {/* add additional screen here */}
-        <Stack.Screen
-          name="Donate"
-          component={Donate}
-        />
-        <Stack.Screen
-          name="Donation Receipt"
-          component={DonationReceipt}
-        />
-       
-
+        <Stack.Screen name="Donate" component={Donate} />
+        <Stack.Screen name="Donation Receipt" component={DonationReceipt} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -138,5 +147,5 @@ const styles = StyleSheet.create({
   icon2: {
     width: 30,
     height: 30,
-  }
+  },
 });
