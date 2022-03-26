@@ -8,6 +8,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {firebase} from '@react-native-firebase/auth';
 
 import DashboardScreen from './src/modules/Dashboard/DashboardScreen';
+import TestScreen from './src/modules/Dashboard/TestScreen';
 
 import DonationScreen from './src/modules/Donation/DonationScreen';
 import Donate from './src/modules/Donation/Donate';
@@ -131,6 +132,7 @@ function App() {
         {/* add additional screen here */}
         <Stack.Screen name="Donate" component={Donate} />
         <Stack.Screen name="Donation Receipt" component={DonationReceipt} />
+        <Stack.Screen name="TestScreen" component={TestScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

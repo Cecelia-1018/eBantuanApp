@@ -1,9 +1,15 @@
 // Normal Import
 import React, { Component } from 'react';
-import { View, Text, Image, Button, StyleSheet, ScrollView, Linking, Platform } from 'react-native';
+import {
+  Modal, View, Text, Image,
+  StyleSheet, ScrollView, Linking,
+  TouchableOpacity, Alert
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { LineChart, BarChart, PieChart, ProgressChart, } from "react-native-chart-kit";
-//import FusionCharts from "react-native-fusioncharts";
+import { Button } from 'react-native-paper';
+import { LineChart, BarChart, ProgressChart } from "react-native-chart-kit";
+// import ReactNativeFusionCharts from "react-native-fusioncharts";
+// import Modal from "react-native-modal";
 
 // Data Import
 import * as dummies from './assets/dummy'
@@ -14,6 +20,7 @@ import firestore from '@react-native-firebase/firestore';
 const Donor = dummies.Donor;
 var DonorCount = dummies.DonorCount;
 var totalDonation = dummies.totalDonation;
+var totalDispersion = dummies.totalDispersion;
 var DonorRetention = dummies.DonorRetention;
 var uniqueDonorCount = dummies.uniqueDonorCount;
 const Recipient = dummies.Recipient;
@@ -34,133 +41,258 @@ const chart_w = constants.chart_w;
 const chartConfig_1 = constants.chartConfig_1;
 const chartConfig_2 = constants.chartConfig_2;
 const chartConfig_3 = constants.chartConfig_3;
+const chartConfig_4 = constants.chartConfig_4;
+const dashboard_head_1 = constants.dashboard_head_1
+const card_title_1 = constants.card_title_1
+const card_title_2 = constants.card_title_2
+const card_title_3 = constants.card_title_3
+const card_title_4 = constants.card_title_4
+const update_by = constants.update_by
+const dashboard_head_2 = constants.dashboard_head_2
+const title_analysis_1 = constants.title_analysis_1
+const title_analysis_2 = constants.title_analysis_2
+const title_analysis_3a = constants.title_analysis_3a
+const title_analysis_3b = constants.title_analysis_3b
+const end_of_analysis = constants.end_of_analysis
+const total_donation = constants.total_donation
+const total_dispersion = constants.total_dispersion
+const jkm_misi = constants.jkm_misi
+const jkm_logo = constants.jkm_logo
+
+// Function Declaration
+
+
+// Extra Screen/Class/Function Constructor
+class TestScreen extends Component {
+  // Just an idiot constructor, can do nothing
+
+}
 
 // Actual Implementation
 class DashboardScreen extends Component {
+  state = {
+    modalVisible: true,
+  };
+
+  setModalVisible = (visible) => {
+    this.setState({ modalVisible: visible });
+  }
+
   constructor(props) {
     super(props);
+    this.state = {
+    };
+  };
 
+  _onScroll() {
+    alert('Show End Of Scroll')
   }
+  _onPressToZoom() {
+    alert('Zoom the area')
+  }
+  _onPressTest() {
+    alert('Test')
+  }
+
+  SampleFunction = () => {
+    Alert.alert("Floating Button Clicked");
+  }
+
   render() {
+    const { modalVisible } = this.state;
     return (
-      <View style={styles.container}>
-        <LinearGradient
-          colors={['#0072ff', '#00c6ff']}
-          style={styles.dashboardcontentA}
-          start={{ x: 0, y: 0 }}>
-          <Text style={styles.header_1}>JKM DASHBOARD</Text>
-          <Text style={styles.Text1}>Last updated: {new Date().toDateString()}</Text>
-          <ScrollView
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
+      <View>
+        <View>
+          <Modal
+            animationType="fade" // slide or fade
+            transparent={true}
+            visible={modalVisible}
           >
-            <View backgroundColor="blue" style={styles.dashboardA_Card}>
-              <View>
-                <Text style={styles.dashboardA_Card_TextHeader}>Total Donor</Text>
-                <Text style={styles.dashboardA_Card_Text1}>{uniqueDonorCount}</Text>
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.modalText}>Hello World!</Text>
+                <Button
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => this.setModalVisible(!modalVisible)}
+                >
+                  <Text style={styles.textStyle}>Hide Modal</Text>
+                </Button>
               </View>
             </View>
-            <View backgroundColor="red" style={styles.dashboardA_Card}>
-              <Text style={styles.dashboardA_Card_TextHeader}>Donor Retention</Text>
-              <Text style={styles.dashboardA_Card_Text1}>{DonorRetention} %</Text>
-            </View>
-            <View backgroundColor="#52c234" style={styles.dashboardA_Card}>
-              <Text style={styles.dashboardA_Card_TextHeader}>Total Receipt</Text>
-              <Text style={styles.dashboardA_Card_Text1}>{RecipientCount}</Text>
-            </View>
-            <View backgroundColor="orange" style={styles.dashboardA_Card}>
-              <Text
-                style={styles.dashboardA_Card_TextHeader}
-                onPress={() => Linking.openURL('https://www.jkm.gov.my/jkm/index.php')}>
-                More details
-              </Text>
-              <Text style={styles.dashboardA_Card_Text1}
-                onPress={() => Linking.openURL('https://www.jkm.gov.my/jkm/index.php')}>
-                ➤
-              </Text>
-            </View>
-          </ScrollView>
-        </LinearGradient>
-
-        <View style={styles.dashboardcontentB}>
-          <Text style={styles.header_2}>DONATION ANALYSIS</Text>
-
-          <ScrollView
-            horizontal={false}
-            showsVerticalScrollIndicator={false}
-            minimumZoomScale={1}
-            maximumZoomScale={5}
-          >
-            <View style={styles.dashboardB_Card}>
-              <Text style={styles.dashboardB_Card_TextHeader}>Donation Statistic</Text>
-              <Text style={styles.dashboardB_Card_Text1}>Last updated: {new Date().toDateString()}</Text>
-              <View>
-                <LineChart
-                  data={statistic}
-                  width={chart_w}
-                  height={chart_h*0.95}
-                  yAxisInterval={1}
-                  chartConfig={chartConfig_1}
-                  bezier
-                  style={styles.chart}
-                />
-              </View>
-            </View>
-            <View style={styles.dashboardB_Card}>
-              <View>
-                <Text style={styles.dashboardB_Card_TextHeader}>Donation Dispersion By Aspect</Text>
-                <Text style={styles.dashboardB_Card_Text1}>Last updated: {new Date().toDateString()}</Text>
-                <ProgressChart
-                  marginTop={10}
-                  data={categorydata}
-                  width={chart_w}
-                  height={chart_h}
-                  strokeWidth={12}
-                  radius={20}
-                  chartConfig={chartConfig_2}
-                  hideLegend={false}
-                />
-                <Text style={styles.dashboardB_Card_Text2}>Total Donation: RM{totalDonation}</Text>
-              </View>
-            </View>
-
-            <View style={styles.dashboardB_Card}>
-              <View>
-                <Text style={styles.dashboardB_Card_TextHeader}>Donation Dispersion By State</Text>
-                <Text style={styles.dashboardB_Card_TextHeader}>($ in thousands - All figures are rounded)</Text>
-                <Text style={styles.dashboardB_Card_Text1}>Last updated: {new Date().toDateString()}</Text>
-                <BarChart
-                  data={statedata}
-                  width={chart_w * 0.95}
-                  height={chart_h}
-                  yAxisSuffix={"$"}
-                  chartConfig={chartConfig_3}
-                  verticalLabelRotation={30}
-                />
-              </View>
-            </View>
-
-            <View>
-              <Text style={styles.endOfScrolltxt}>~ No More Analysis ~</Text>
-            </View>
-
-            {/* <View style={styles.dashboardB_Card}>
-              <View>
-                <Text style={styles.dashboardB_Card_TextHeader}>For Testing</Text>
-                <Text style={styles.dashboardB_Card_Text1}>Last updated: {new Date().toDateString()}</Text>
-                <FusionCharts
-                  type={this.fusionstate.type}
-                  width={this.fusionstate.width}
-                  height={this.fusionstate.height}
-                  dataFormat={this.fusionstate.dataFormat}
-                  dataSource={this.fusionstate.dataSource}
-                  libraryPath={this.libraryPath} // set the libraryPath property
-                />
-              </View>
-            </View> */}
-
-          </ScrollView>
+          </Modal>
         </View>
+
+        <View style={styles.container}>
+          <LinearGradient
+            colors={['#0072ff', '#00c6ff']}
+            style={styles.dashboardcontentA}
+            start={{ x: 0, y: 0 }}>
+            <Text style={styles.header_1}>{dashboard_head_1}</Text>
+            <Text style={styles.Text1}>{jkm_misi}</Text>
+            <ScrollView
+              fadingEdgeLength={60}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              <View backgroundColor="blue" style={styles.dashboardA_Card} >
+                <TouchableOpacity activeOpacity={0.9}>
+                  <Text style={styles.dashboardA_Card_TextHeader}>{card_title_1}</Text>
+                  <Text style={styles.dashboardA_Card_Text1}>{uniqueDonorCount}</Text>
+                </TouchableOpacity>
+              </View>
+              <View backgroundColor="red" style={styles.dashboardA_Card}>
+                <TouchableOpacity activeOpacity={0.9}>
+                  <Text style={styles.dashboardA_Card_TextHeader}>{card_title_2}</Text>
+                  <Text style={styles.dashboardA_Card_Text1}>{DonorRetention} %</Text>
+                </TouchableOpacity>
+              </View>
+              <View backgroundColor="#52c234" style={styles.dashboardA_Card}>
+                <TouchableOpacity activeOpacity={0.9}>
+
+                  <Text style={styles.dashboardA_Card_TextHeader}>{card_title_3}</Text>
+                  <Text style={styles.dashboardA_Card_Text1}>{RecipientCount}</Text>
+                </TouchableOpacity></View>
+              <View backgroundColor="orange" style={styles.dashboardA_Card}>
+                <TouchableOpacity activeOpacity={0.9}>
+
+                  <Text
+                    style={styles.dashboardA_Card_TextHeader}
+                    onPress={() => Linking.openURL('https://www.jkm.gov.my/jkm/index.php')}>
+                    {card_title_4}
+                  </Text>
+                  <Text style={styles.dashboardA_Card_Text1}
+                    onPress={() => Linking.openURL('https://www.jkm.gov.my/jkm/index.php')}>
+                    ➤
+                  </Text></TouchableOpacity>
+              </View>
+            </ScrollView>
+          </LinearGradient>
+
+          <View style={styles.dashboardcontentB}>
+            <Text style={styles.header_2}>{dashboard_head_2}</Text>
+
+            <ScrollView
+              fadingEdgeLength={60}
+              horizontal={false}
+              showsVerticalScrollIndicator={false}
+              minimumZoomScale={1}
+              maximumZoomScale={5}
+            >
+              <View style={styles.dashboardB_Card}>
+                <Text style={styles.dashboardB_Card_TextHeader}>{title_analysis_1}</Text>
+                <Text style={styles.dashboardB_Card_Text1}>{update_by}{new Date().toDateString()}</Text>
+                <View>
+                  <LineChart
+                    data={statistic}
+                    width={chart_w}
+                    height={chart_h * 0.80}
+                    yAxisInterval={1}
+                    yAxisLabel={"RM"}
+                    chartConfig={chartConfig_1}
+                    bezier
+                    style={styles.chart}
+                  />
+                  <Text style={styles.dashboardB_Card_Text2}>{total_donation}{totalDonation}</Text>
+                  <Text style={styles.dashboardB_Card_Text2}>{total_dispersion}{totalDispersion}</Text>
+                </View>
+              </View>
+              <View style={styles.dashboardB_Card}>
+                <View>
+                  <Text style={styles.dashboardB_Card_TextHeader}>{title_analysis_2}</Text>
+                  <Text style={styles.dashboardB_Card_Text1}>{update_by}{new Date().toDateString()}</Text>
+                  <ProgressChart
+                    marginTop={10}
+                    data={categorydata}
+                    width={chart_w}
+                    height={chart_h}
+                    strokeWidth={12}
+                    radius={35}
+                    chartConfig={chartConfig_2}
+                    hideLegend={false}
+                  />
+                </View>
+              </View>
+
+              <View style={styles.dashboardB_Card}>
+                <View>
+                  <Text style={styles.dashboardB_Card_TextHeader}>{title_analysis_3a}</Text>
+                  <Text style={styles.dashboardB_Card_TextHeader}>{title_analysis_3b}</Text>
+                  <Text style={styles.dashboardB_Card_Text1}>{update_by}{new Date().toDateString()}</Text>
+                  <BarChart
+                    data={statedata}
+                    width={chart_w * 0.95}
+                    height={chart_h}
+                    yAxisSuffix={"$"}
+                    chartConfig={chartConfig_3}
+                    verticalLabelRotation={30}
+                  />
+                </View>
+              </View>
+
+              <View>
+                <Text style={styles.endOfScrolltxt}>{end_of_analysis}</Text>
+              </View>
+
+              <View style={styles.dashboardB_Card}>
+                <View>
+                  <Text style={styles.dashboardB_Card_TextHeader}>For Testing</Text>
+                  <Button
+                    mode="contained"
+                    color="#045de9"
+                    style={styles.button}
+                    onPress={() => this.props.navigation.navigate(TestScreen)}
+                  >
+                    Navigate To Test Screen
+                  </Button>
+
+                  <Text style={styles.textStyle}> A break Line </Text>
+
+                  <Button
+                    icon={require('./assets/share_love.png')}
+                    mode="contained"
+                    style={styles.button}
+                    onPress={() => this.setModalVisible(true)}
+                  >
+                    Pop Up Modal
+                  </Button>
+
+                  <Text style={styles.textStyle}> A break Line </Text>
+
+                  <TouchableOpacity mode="contained" style={styles.stackedButtonStyle} activeOpacity={0.5}>
+                    <Image
+                      style={styles.ImageIconStyle}
+                      source={require('./assets/share_love_icon.png')}
+                      mode="contained"
+                      color="#e4f2f7"
+                    />
+                    <View style={styles.SeparatorLine} />
+                    <Text style={styles.IconTextStyle}>Visit JKM Official Portal</Text>
+                  </TouchableOpacity>
+
+                  <Text style={styles.textStyle}> A break Line </Text>
+
+                </View>
+              </View>
+
+            </ScrollView>
+          </View>
+        </View>
+
+
+        <View>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={this.SampleFunction}
+            style={styles.TouchableOpacityStyle}
+          >
+            <Image
+              style={styles.FloatingButtonStyle}
+              source={require('./assets/share_love_icon.png')}
+            // source={{ uri: 'https://reactnativecode.com/wp-content/uploads/2017/11/Floating_Button.png' }}
+            />
+          </TouchableOpacity>
+        </View>
+
       </View>
     );
   }
@@ -248,7 +380,6 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   dashboardB_Card_Text2: {
-    marginTop: 5,
     marginRight: 15,
     textAlign: "right"
   },
@@ -272,7 +403,8 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginBottom: 10,
     color: "white",
-    fontSize: 15
+    fontSize: 14,
+    fontFamily: 'sans-serif-condensed'
   },
   header_2: {
     marginLeft: 15,
@@ -289,6 +421,92 @@ const styles = StyleSheet.create({
     lineHeight: 40,
     fontWeight: "bold",
     textAlign: "center",
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    width: 300,
+    borderRadius: 30,
+    marginLeft: 20,
+    marginTop: 10,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  stackedButtonStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#dc4e41',
+    borderWidth: .5,
+    borderColor: '#fff',
+    height: 60,
+    width: 300,
+    borderRadius: 5,
+    marginLeft: 20,
+    marginTop: 10,
+  },
+  ImageIconStyle: {
+    padding: 10,
+    margin: 5,
+    height: 60,
+    width: 60,
+  },
+  SeparatorLine: {
+    backgroundColor: '#fff',
+    width: 1,
+    height: 70
+  },
+  IconTextStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    marginLeft: 20,
+  },
+  TouchableOpacityStyle: {
+    // position: 'absolute',
+    top: dashboardPartB_card_h * 0.02,
+    left: dashboardPartB_card_w * 0.9,
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  FloatingButtonStyle: {
+    resizeMode: 'contain',
+    width: 50,
+    height: 50,
+    zIndex: 7
   }
 });
 
