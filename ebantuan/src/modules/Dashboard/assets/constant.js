@@ -3,7 +3,7 @@ import * as dummies from './dummy'
 
 // Display Setting
 export const { width } = Dimensions.get("window");
-export const height = width * 0.4;
+export const height = width * 0.6;
 export const bannerheight = width * 0.28;
 export const dashboardPartA = width * 0.55;
 export const dashboardPartB = width * 1.25;
@@ -38,7 +38,6 @@ export const chartConfig_2 = {
     strokeWidth: 2,
     barPercentage: 0.5,
     useShadowColorFromDataset: false
-
 };
 export const chartConfig_3 = {
     backgroundGradientFrom: "white",
@@ -95,6 +94,9 @@ export const end_of_analysis = '~ No More Analysis ~';
 export const total_donation = 'Donation Recieved: RM';
 export const total_dispersion = 'Donation Dispersed: RM';
 export const jkm_misi = '"Empowering communities in need of social well-being"';
+export const wlc_msg = '~ WELCOME TO EBANTUAN ~';
+export const close_msg = 'Double Click Me To Get Started';
+
 
 // Image Resource
 export const jkm_logo = { uri: 'https://img.favpng.com/19/17/22/jabatan-kebajikan-masyarakat-logo-portable-network-graphics-vector-graphics-welfare-png-favpng-p8Dr3GPnWPybhL4VQABsvGLYk.jpg' }

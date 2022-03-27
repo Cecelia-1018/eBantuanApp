@@ -31,7 +31,6 @@ const categorydata = dummies.categorydata;
 const statedata = dummies.statedata;
 const width = constants.width;
 const height = constants.height;
-const bannerheight = constants.bannerheight;
 const dashboardPartA = constants.dashboardPartA;
 const dashboardPartB = constants.dashboardPartB;
 const dashboardPartB_card_h = constants.dashboardPartB_card_h;
@@ -41,7 +40,6 @@ const chart_w = constants.chart_w;
 const chartConfig_1 = constants.chartConfig_1;
 const chartConfig_2 = constants.chartConfig_2;
 const chartConfig_3 = constants.chartConfig_3;
-const chartConfig_4 = constants.chartConfig_4;
 const dashboard_head_1 = constants.dashboard_head_1
 const card_title_1 = constants.card_title_1
 const card_title_2 = constants.card_title_2
@@ -57,10 +55,8 @@ const end_of_analysis = constants.end_of_analysis
 const total_donation = constants.total_donation
 const total_dispersion = constants.total_dispersion
 const jkm_misi = constants.jkm_misi
-const jkm_logo = constants.jkm_logo
-
-// Function Declaration
-
+const wlc_msg = constants.wlc_msg
+const close_msg = constants.close_msg
 
 // Extra Screen/Class/Function Constructor
 class TestScreen extends Component {
@@ -83,19 +79,8 @@ class DashboardScreen extends Component {
     this.state = {
     };
   };
-
-  _onScroll() {
-    alert('Show End Of Scroll')
-  }
-  _onPressToZoom() {
-    alert('Zoom the area')
-  }
-  _onPressTest() {
-    alert('Test')
-  }
-
   SampleFunction = () => {
-    Alert.alert("Floating Button Clicked");
+    Alert.alert("Service Not Available For Current Version");
   }
 
   render() {
@@ -108,17 +93,19 @@ class DashboardScreen extends Component {
             transparent={true}
             visible={modalVisible}
           >
+            <View style={styles.modalContainer}></View>
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
-                <Text style={styles.modalText}>Hello World!</Text>
+                <Text style={styles.modalText}>{wlc_msg}</Text>
                 <Button
                   style={[styles.button, styles.buttonClose]}
                   onPress={() => this.setModalVisible(!modalVisible)}
                 >
-                  <Text style={styles.textStyle}>Hide Modal</Text>
+                  <Text style={styles.textStyle}>{close_msg}</Text>
                 </Button>
               </View>
             </View>
+            <View style={styles.modalContainer}></View>
           </Modal>
         </View>
 
@@ -422,26 +409,42 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
+  modalContainer: {
+    margin:0,
+    flex: 1,
+    opacity: 0.4,
+    width,
+    height: height,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#FFFAFA",
+  },
+  centeredView: {
+    margin:0,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
+    backgroundColor: "#FFFAFA",
+    borderColor: "grey",
+    borderRadius: 30,
+    borderWidth: 1,
     padding: 35,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
-      width: 0,
-      height: 2
+      width: 10,
+      height: 16
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
+    shadowOpacity: 0.75,
+    shadowRadius: 40,
     elevation: 5
   },
   button: {
     width: 300,
     borderRadius: 30,
     marginLeft: 20,
-    marginTop: 10,
   },
   buttonOpen: {
     backgroundColor: "#F194FF",
@@ -455,14 +458,11 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   modalText: {
+    fontSize: 20,
     marginBottom: 15,
-    textAlign: "center"
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
+    color: "black",
+    fontWeight: "bold",
+    textAlign: "center",
   },
   stackedButtonStyle: {
     flexDirection: 'row',
