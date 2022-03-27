@@ -14,57 +14,21 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Icon} from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import auth, {firebase} from '@react-native-firebase/auth';
-// import * as Animatable from 'react-native-animatable';
-import RNRestart from 'react-native-restart';
 
-const SignIn = ({navigation}) => {
+const ForgetPassword = ({navigation}) => {
   const [data, setData] = useState({
     email: '',
-    password: '',
+
     check_textInputChange: false,
     secureTextEntry: true,
   });
+  const [isValid, setValid] = useState(true);
+  const [error, setError] = useState('');
   const __isValidEmail = email => {
     var re =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   };
-  const [fetching, setFetching] = useState(false);
-  const [error, setError] = useState('');
-  const [isValid, setValid] = useState(true);
-  const __doLogin = () => {
-    if (!data.email) {
-      setError('Email required *');
-      setValid(false);
-      return;
-    } else if (
-      !data.password &&
-      data.password.trim() &&
-      data.password.length > 6
-    ) {
-      setError('Weak password, minimum 5 chars');
-      setValid(false);
-      return;
-    } else if (!__isValidEmail(data.email)) {
-      setError('Invalid Email');
-      setValid(false);
-      return;
-    }
-
-    __doSingIn(data.email, data.password);
-  };
-
-  const __doSingIn = async (email, password) => {
-    try {
-      let response = await auth().signInWithEmailAndPassword(email, password);
-      if (response && response.user) {
-        Alert.alert('Success ✅', 'Logged successfully'), RNRestart.Restart();
-      }
-    } catch (e) {
-      Alert.alert('This user were not exists, try again');
-    }
-  };
-
   const textInputChange = val => {
     if (val.length !== 0) {
       setData({
@@ -81,21 +45,29 @@ const SignIn = ({navigation}) => {
     }
   };
 
-  const handlePasswordChange = val => {
-    setData({
-      ...data,
-      password: val,
-    });
+  const __doReset = () => {
+    if (!data.email) {
+      Alert.alert('Email required *');
+      setValid(false);
+      return;
+    } else if (!__isValidEmail(data.email)) {
+      Alert.alert('Invalid Email');
+      setValid(false);
+      return;
+    }
+
+    __doResetIn(data.email);
   };
 
-  const updateSecureTextEntry = () => {
-    setData({
-      ...data,
-      secureTextEntry: !data.secureTextEntry,
-    });
-  };
+  const __doResetIn = async email => {
+    try {
+      let response = await auth().sendPasswordResetEmail(email);
 
-  //const
+      Alert.alert('Success ✅', 'Check your email'), navigation.goBack();
+    } catch (e) {
+      Alert.alert('This user were not exists, try again');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -103,7 +75,7 @@ const SignIn = ({navigation}) => {
         colors={['#a9cdeb', '#dfc8f7']}
         style={styles.box1}
         start={{x: 0, y: 0}}>
-        <Text style={styles.text_header}>Login</Text>
+        <Text style={styles.text_header}>Reset Password</Text>
 
         {/* <Animatable.View style={styles.footer} animation="fadeInUpBig"> */}
         <View style={styles.footer}>
@@ -130,72 +102,23 @@ const SignIn = ({navigation}) => {
               }}
               error={isValid}
             />
-            {data.check_textInputChange ? (
-              // <Animatable.View animation="bounceIn">
-
-              <Feather name="check-circle" color="green" size={20} />
-            ) : null}
-          </View>
-          <Text style={[styles.text_footer, {marginTop: 35}]}>Password</Text>
-          <View style={styles.action}>
-            <Icon
-              size={20}
-              type="ionicon"
-              name={
-                Platform.OS === 'ios'
-                  ? 'ios-lock-closed-outline'
-                  : 'md-lock-closed-outline'
-              }
-            />
-            <TextInput
-              style={styles.textInput}
-              secureTextEntry={data.secureTextEntry ? true : false}
-              autoCapitalize="none"
-              onChangeText={val => handlePasswordChange(val)}
-              error={isValid}
-            />
-            <TouchableOpacity onPress={updateSecureTextEntry}>
-              {data.secureTextEntry ? (
-                <Feather name="eye-off" color="grey" size={20} />
-              ) : (
-                <Feather name="eye" color="grey" size={20} />
-              )}
-            </TouchableOpacity>
           </View>
           <View style={styles.button}>
             <Button
               style={[styles.signIn]}
               color="black"
-              onPress={__doLogin}
+              onPress={__doReset}
               mode="contained">
-              Log In
-            </Button>
-          </View>
-
-          <View>
-            <Button
-              style={[styles.signUp]}
-              color="black"
-              onPress={() => navigation.navigate('SignupScreen')}
-              mode="text">
-              Don't have an account?
-            </Button>
-            <Button
-              style={[styles.signUp]}
-              color="black"
-              onPress={() => navigation.navigate('ForgetPassword')}
-              mode="text">
-              Forget Password?
+              Reset
             </Button>
           </View>
         </View>
       </LinearGradient>
-      {/* </Animatable.View> */}
     </View>
   );
 };
 
-export default SignIn;
+export default ForgetPassword;
 
 const styles = StyleSheet.create({
   container: {

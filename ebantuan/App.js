@@ -18,13 +18,16 @@ import FundHelpScreen from './src/modules/FundHelp/FundHelpScreen';
 
 import MainSign from './src/modules/Profile/MainSign';
 import ProfileScreen from './src/modules/Profile/ProfileScreen';
+import EditProfile from './src/modules/Profile/EditProfile';
 
 import {LogBox} from 'react-native';
 
 //Start add
 
 LogBox.ignoreLogs([
-  "[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!",'Each child in a list should have a unique "key" prop.','Deprecated Gradle features were used in this build, making it incompatible with Gradle 8.0.'
+  "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
+  'Each child in a list should have a unique "key" prop.',
+  'Deprecated Gradle features were used in this build, making it incompatible with Gradle 8.0.',
 ]);
 
 const Tab = createBottomTabNavigator();
@@ -133,6 +136,7 @@ function App() {
         <Stack.Screen name="Donate" component={Donate} />
         <Stack.Screen name="Donation Receipt" component={DonationReceipt} />
         <Stack.Screen name="TestScreen" component={TestScreen} />
+        <Stack.Screen name="Edit Profile" component={EditProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

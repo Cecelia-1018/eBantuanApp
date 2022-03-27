@@ -153,7 +153,7 @@ const SignUp = ({navigation}) => {
         <View style={styles.footer}>
           {/* <Animatable.View style={styles.footer} animation="fadeInUpBig"> */}
 
-          <Text style={styles.text_footer}>Username</Text>
+          <Text style={styles.text_footer}>Fullname</Text>
           <View style={styles.action}>
             <Icon
               size={20}
@@ -183,9 +183,7 @@ const SignUp = ({navigation}) => {
               size={20}
               type="ionicon"
               name={
-                Platform.OS === 'ios'
-                  ? 'ios-person-outline'
-                  : 'md-person-outline'
+                Platform.OS === 'ios' ? 'ios-mail-outline' : 'md-mail-outline'
               }
             />
             <TextInput
