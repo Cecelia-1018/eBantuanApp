@@ -79,6 +79,7 @@ class DashboardScreen extends Component {
     this.state = {
     };
   };
+  
   SampleFunction = () => {
     Alert.alert("Service Not Available For Current Version");
   }
@@ -220,7 +221,7 @@ class DashboardScreen extends Component {
                 <Text style={styles.endOfScrolltxt}>{end_of_analysis}</Text>
               </View>
 
-              <View style={styles.dashboardB_Card}>
+              {/* <View style={styles.dashboardB_Card}>
                 <View>
                   <Text style={styles.dashboardB_Card_TextHeader}>For Testing</Text>
                   <Button
@@ -259,7 +260,7 @@ class DashboardScreen extends Component {
                   <Text style={styles.textStyle}> A break Line </Text>
 
                 </View>
-              </View>
+              </View> */}
 
             </ScrollView>
           </View>
