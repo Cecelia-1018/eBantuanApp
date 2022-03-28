@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
-import { Card, Paragraph, Button, Title } from 'react-native-paper';
+import { Card, Button, Title } from 'react-native-paper';
 
 function TestScreen({ navigation, route }) {
-  //navigation
   return (
     <View>
 

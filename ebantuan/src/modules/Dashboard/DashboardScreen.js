@@ -8,8 +8,6 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import { Button } from 'react-native-paper';
 import { LineChart, BarChart, ProgressChart } from "react-native-chart-kit";
-// import ReactNativeFusionCharts from "react-native-fusioncharts";
-// import Modal from "react-native-modal";
 
 // Data Import
 import * as dummies from './assets/dummy'
@@ -37,9 +35,6 @@ const dashboardPartB_card_h = constants.dashboardPartB_card_h;
 const dashboardPartB_card_w = constants.dashboardPartB_card_w;
 const chart_h = constants.chart_h;
 const chart_w = constants.chart_w;
-const chartConfig_1 = constants.chartConfig_1;
-const chartConfig_2 = constants.chartConfig_2;
-const chartConfig_3 = constants.chartConfig_3;
 const dashboard_head_1 = constants.dashboard_head_1
 const card_title_1 = constants.card_title_1
 const card_title_2 = constants.card_title_2
@@ -79,7 +74,7 @@ class DashboardScreen extends Component {
     this.state = {
     };
   };
-  
+
   SampleFunction = () => {
     Alert.alert("Service Not Available For Current Version");
   }
@@ -88,7 +83,7 @@ class DashboardScreen extends Component {
     const { modalVisible } = this.state;
     return (
       <View>
-        <View>
+        {/* <View>
           <Modal
             animationType="fade" // slide or fade
             transparent={true}
@@ -108,7 +103,7 @@ class DashboardScreen extends Component {
             </View>
             <View style={styles.modalContainer}></View>
           </Modal>
-        </View>
+        </View> */}
 
         <View style={styles.container}>
           <LinearGradient
@@ -176,7 +171,7 @@ class DashboardScreen extends Component {
                     height={chart_h * 0.80}
                     yAxisInterval={1}
                     yAxisLabel={"RM"}
-                    chartConfig={chartConfig_1}
+                    chartConfig={styles.chartConfig_1}
                     bezier
                     style={styles.chart}
                   />
@@ -195,7 +190,7 @@ class DashboardScreen extends Component {
                     height={chart_h}
                     strokeWidth={12}
                     radius={35}
-                    chartConfig={chartConfig_2}
+                    chartConfig={styles.chartConfig_2}
                     hideLegend={false}
                   />
                 </View>
@@ -211,7 +206,7 @@ class DashboardScreen extends Component {
                     width={chart_w * 0.95}
                     height={chart_h}
                     yAxisSuffix={"$"}
-                    chartConfig={chartConfig_3}
+                    chartConfig={styles.chartConfig_3}
                     verticalLabelRotation={30}
                   />
                 </View>
@@ -267,7 +262,7 @@ class DashboardScreen extends Component {
         </View>
 
 
-        <View>
+        {/* <View>
           <TouchableOpacity
             activeOpacity={0.5}
             onPress={this.SampleFunction}
@@ -279,7 +274,7 @@ class DashboardScreen extends Component {
             // source={{ uri: 'https://reactnativecode.com/wp-content/uploads/2017/11/Floating_Button.png' }}
             />
           </TouchableOpacity>
-        </View>
+        </View> */}
 
       </View>
     );
@@ -299,7 +294,8 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
     width,
-    height: dashboardPartB
+    height: dashboardPartB,
+    bottom: 0,
   },
   dashboardA_Card: {
     marginTop: 8,
@@ -403,7 +399,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
   endOfScrolltxt: {
-    marginBottom: 25,
+    marginBottom: 30,
     color: "grey",
     fontSize: 16,
     lineHeight: 40,
@@ -411,7 +407,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   modalContainer: {
-    margin:0,
+    margin: 0,
     flex: 1,
     opacity: 0.4,
     width,
@@ -421,7 +417,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFAFA",
   },
   centeredView: {
-    margin:0,
+    margin: 0,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -495,7 +491,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   TouchableOpacityStyle: {
-    // position: 'absolute',
     top: dashboardPartB_card_h * 0.02,
     left: dashboardPartB_card_w * 0.9,
     width: 50,
@@ -508,7 +503,48 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     zIndex: 7
+  },
+  chartConfig_1: {
+    backgroundGradientFrom: "white",
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientTo: "white",
+    backgroundGradientToOpacity: 0.5,
+    decimalPlaces: 0,
+    color: (opacity = 1) => `rgba(0, 131, 176, ${opacity})`,
+    labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+    style: {
+      borderRadius: 16
+    },
+    propsForDots: {
+      r: "6",
+      strokeWidth: "2",
+      stroke: "#ffddab"
+    }
+  },
+  chartConfig_2: {
+    backgroundGradientFrom: "white",
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientTo: "white",
+    backgroundGradientToOpacity: 0.5,
+    color: (opacity = 1) => `rgba(0, 131, 176, ${opacity})`,
+    labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+    strokeWidth: 2,
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false
+  },
+  chartConfig_3: {
+    backgroundGradientFrom: "white",
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientTo: "white",
+    backgroundGradientToOpacity: 0.5,
+    color: (opacity = 1) => `rgba(0, 131, 176, ${opacity})`,
+    labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+    resizeMode: "contain",
+    strokeWidth: 2,
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false
   }
+
 });
 
 export default DashboardScreen;

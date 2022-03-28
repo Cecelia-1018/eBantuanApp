@@ -1,5 +1,3 @@
-import { main_aspect } from "./constant";
-
 //---Donor Entity
 export const Donor = [
   { id: 1, email: "Andy", amount: 10000, date: "3/16/2022" , mnth: 10},
