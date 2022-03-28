@@ -110,7 +110,9 @@ function ProfileScreen({navigation}) {
             </Button>
             <Avatar
               onChange={onAvatarChange}
-              source={imageUrl ? {uri: imageUrl} : require('./assets/plus.png')}
+              source={
+                imageUrl ? {uri: imageUrl} : require('./assets/profile.png')
+              }
             />
             {/* {imageUrl ? null : <Text>Upload photo with black cirlce.</Text>} */}
             <Text style={styles.header_text}> {item.name}</Text>
@@ -120,10 +122,6 @@ function ProfileScreen({navigation}) {
         <View style={styles.footer}>
           {item.details ? (
             <View>
-              <Text style={styles.text}>
-                Lead the formulation of comprehensive, integrated and effective
-                national security policy and management
-              </Text>
               <View style={styles.row}>
                 <Text style={styles.title}>Account Info</Text>
                 <IconButton
@@ -238,9 +236,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     padding: 20,
-    margin: 0,
-    borderBottomLeftRadius: 100,
-    borderBottomRightRadius: 100,
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
   },
   header_text: {
     fontSize: 15,
@@ -262,7 +259,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
-    paddingVertical: 60,
+    paddingVertical: 10,
   },
   center: {
     justifyContent: 'center',
@@ -278,7 +275,7 @@ const styles = StyleSheet.create({
   text: {
     borderBottomWidth: 2,
     fontSize: 15,
-    fontFamily: 'monospace',
+
     color: 'black',
     paddingBottom: 15,
   },
@@ -294,22 +291,21 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   row: {
-    paddingTop: 20,
     paddingBottom: 10,
     flexDirection: 'row',
     alignContent: 'space-around',
   },
   title: {
-    fontSize: 35,
+    fontSize: 30,
+    color: 'black',
   },
   column: {
     flexDirection: 'row',
-    marginBottom: 10,
+    marginBottom: 20,
     borderBottomWidth: 0.2,
     borderTopWidth: 0.2,
     color: 'grey',
     borderRadius: 30,
-
     backgroundColor: '#fff',
   },
   icon: {

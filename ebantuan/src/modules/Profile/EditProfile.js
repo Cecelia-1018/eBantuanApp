@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, Alert} from 'react-native';
+import {View, Text, StyleSheet, Alert, ScrollView} from 'react-native';
 import {TextInput, Button, Title, Card, Snackbar} from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 import LinearGradient from 'react-native-linear-gradient';
@@ -53,84 +53,86 @@ function EditProfile({navigation, route}) {
         <Text style={styles.header}>Edit Information</Text>
 
         <View style={styles.footer}>
-          <View style={styles.action}>
-            <Text style={[styles.text_footer, {marginTop: 20}]}>Address:</Text>
-            <TextInput
-              value={txtAddress}
-              onChangeText={setTxtAddress}
-              mode="outlined"
-              outlineColor="#a9cdeb"
-              activeOutlineColor="#a9cdeb"
-              multiline={true}
-              numberOfLines={3}
-              style={styles.input}
-            />
-          </View>
-          <View style={styles.action}>
-            <Text
-              style={[styles.text_footer, {marginTop: 20, paddingRight: 50}]}>
-              IC:
-            </Text>
-            <TextInput
-              value={txtIC}
-              onChangeText={setTxtIC}
-              mode="outlined"
-              outlineColor="#a9cdeb"
-              activeOutlineColor="#a9cdeb"
-              style={styles.input}
-            />
-          </View>
-          <View style={styles.action}>
-            <Text style={[styles.text_footer, {marginTop: 20}]}>
-              Phone Number:
-            </Text>
-            <TextInput
-              value={txtPhone}
-              onChangeText={setTxtPhone}
-              mode="outlined"
-              outlineColor="#a9cdeb"
-              activeOutlineColor="#a9cdeb"
-              style={styles.input_2}
-            />
-          </View>
-          <View style={styles.action}>
-            <Text
-              style={[styles.text_footer, {marginTop: 20, paddingRight: 20}]}>
-              Card Number:
-            </Text>
-            <TextInput
-              value={txtCard}
-              onChangeText={setTxtCard}
-              mode="outlined"
-              outlineColor="#a9cdeb"
-              activeOutlineColor="#a9cdeb"
-              style={styles.input_2}
-            />
-          </View>
-          <View style={styles.btnContainer}>
-            <Button
-              mode="contained"
-              onPress={() => updateUserCol()}
-              color="#7ea4fe"
-              style={styles.submitButton}>
-              Submit
-            </Button>
+          <ScrollView>
+            <View style={styles.action}>
+              <Text style={[styles.text_footer, {marginTop: 20}]}>Address</Text>
+              <TextInput
+                value={txtAddress}
+                onChangeText={setTxtAddress}
+                mode="outlined"
+                outlineColor="#a9cdeb"
+                activeOutlineColor="#a9cdeb"
+                multiline={true}
+                numberOfLines={3}
+                style={styles.input}
+              />
+            </View>
+            <View style={styles.action}>
+              <Text
+                style={[styles.text_footer, {marginTop: 20, paddingRight: 50}]}>
+                IC
+              </Text>
+              <TextInput
+                value={txtIC}
+                onChangeText={setTxtIC}
+                mode="outlined"
+                outlineColor="#a9cdeb"
+                activeOutlineColor="#a9cdeb"
+                style={styles.input}
+              />
+            </View>
+            <View style={styles.action}>
+              <Text style={[styles.text_footer, {marginTop: 20}]}>
+                Phone Number
+              </Text>
+              <TextInput
+                value={txtPhone}
+                onChangeText={setTxtPhone}
+                mode="outlined"
+                outlineColor="#a9cdeb"
+                activeOutlineColor="#a9cdeb"
+                style={styles.input_2}
+              />
+            </View>
+            <View style={styles.action}>
+              <Text
+                style={[styles.text_footer, {marginTop: 20, paddingRight: 20}]}>
+                Card Number
+              </Text>
+              <TextInput
+                value={txtCard}
+                onChangeText={setTxtCard}
+                mode="outlined"
+                outlineColor="#a9cdeb"
+                activeOutlineColor="#a9cdeb"
+                style={styles.input_2}
+              />
+            </View>
+            <View style={styles.btnContainer}>
+              <Button
+                mode="contained"
+                onPress={() => updateUserCol()}
+                color="#7ea4fe"
+                style={styles.submitButton}>
+                Submit
+              </Button>
 
-            <Button
-              mode="contained"
-              color="#a1cbf4"
-              style={styles.submitButton}
-              onPress={resetData}>
-              Reset
-            </Button>
-            <Button
-              mode="contained"
-              color="#ccdef0"
-              style={styles.submitButton}
-              onPress={() => navigation.goBack()}>
-              Back
-            </Button>
-          </View>
+              <Button
+                mode="contained"
+                color="#a1cbf4"
+                style={styles.submitButton}
+                onPress={resetData}>
+                Reset
+              </Button>
+              <Button
+                mode="contained"
+                color="#ccdef0"
+                style={styles.submitButton}
+                onPress={() => navigation.goBack()}>
+                Back
+              </Button>
+            </View>
+          </ScrollView>
         </View>
       </LinearGradient>
     </View>
@@ -154,12 +156,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     textAlignVertical: 'center',
-    paddingBottom: 30,
+    paddingBottom: 20,
   },
   footer: {
     flex: 5,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderRadius: 30,
     paddingHorizontal: 20,
     paddingVertical: 30,
     backgroundColor: 'white',
@@ -176,7 +177,6 @@ const styles = StyleSheet.create({
     width: 200,
   },
   action: {
-    flexDirection: 'row',
     marginTop: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',

@@ -4,9 +4,9 @@ export const height = width * 0.6;
 export const bannerheight = width * 0.28;
 export const dashboardPartA = width * 0.55;
 export const dashboardPartB = width * 1.25;
-export const dashboardPartB_card_h = dashboardPartB * 0.80;
+export const dashboardPartB_card_h = dashboardPartB * 0.8;
 export const dashboardPartB_card_w = dashboardPartB * 0.74;
-export const chart_h = dashboardPartB_card_h * 0.70;
+export const chart_h = dashboardPartB_card_h * 0.7;
 export const chart_w = dashboardPartB_card_w * 0.99;
 
 // Color Resource
@@ -37,14 +37,12 @@ export const wlc_msg = '~ WELCOME TO EBANTUAN ~';
 export const close_msg = 'Double Click Me To Get Started';
 
 // Image Resource
-export const jkm_logo = { uri: 'https://img.favpng.com/19/17/22/jabatan-kebajikan-masyarakat-logo-portable-network-graphics-vector-graphics-welfare-png-favpng-p8Dr3GPnWPybhL4VQABsvGLYk.jpg' }
-
+export const jkm_logo = {
+  uri: 'https://img.favpng.com/19/17/22/jabatan-kebajikan-masyarakat-logo-portable-network-graphics-vector-graphics-welfare-png-favpng-p8Dr3GPnWPybhL4VQABsvGLYk.jpg',
+};
 
 // Icon Resource
 
-
 // Video Resource
 
-
 // Animation Resource
-

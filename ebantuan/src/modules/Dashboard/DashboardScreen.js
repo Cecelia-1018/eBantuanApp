@@ -1,17 +1,23 @@
 // Normal Import
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
-  Modal, View, Text, Image,
-  StyleSheet, ScrollView, Linking,
-  TouchableOpacity, Alert
+  Modal,
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Linking,
+  TouchableOpacity,
+  Alert,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Button } from 'react-native-paper';
-import { LineChart, BarChart, ProgressChart } from "react-native-chart-kit";
+import {Button} from 'react-native-paper';
+import {LineChart, BarChart, ProgressChart} from 'react-native-chart-kit';
 
 // Data Import
-import * as dummies from './assets/dummy'
-import * as constants from './assets/constant'
+import * as dummies from './assets/dummy';
+import * as constants from './assets/constant';
 import firestore from '@react-native-firebase/firestore';
 
 // Constant Declaration
@@ -35,28 +41,27 @@ const dashboardPartB_card_h = constants.dashboardPartB_card_h;
 const dashboardPartB_card_w = constants.dashboardPartB_card_w;
 const chart_h = constants.chart_h;
 const chart_w = constants.chart_w;
-const dashboard_head_1 = constants.dashboard_head_1
-const card_title_1 = constants.card_title_1
-const card_title_2 = constants.card_title_2
-const card_title_3 = constants.card_title_3
-const card_title_4 = constants.card_title_4
-const update_by = constants.update_by
-const dashboard_head_2 = constants.dashboard_head_2
-const title_analysis_1 = constants.title_analysis_1
-const title_analysis_2 = constants.title_analysis_2
-const title_analysis_3a = constants.title_analysis_3a
-const title_analysis_3b = constants.title_analysis_3b
-const end_of_analysis = constants.end_of_analysis
-const total_donation = constants.total_donation
-const total_dispersion = constants.total_dispersion
-const jkm_misi = constants.jkm_misi
-const wlc_msg = constants.wlc_msg
-const close_msg = constants.close_msg
+const dashboard_head_1 = constants.dashboard_head_1;
+const card_title_1 = constants.card_title_1;
+const card_title_2 = constants.card_title_2;
+const card_title_3 = constants.card_title_3;
+const card_title_4 = constants.card_title_4;
+const update_by = constants.update_by;
+const dashboard_head_2 = constants.dashboard_head_2;
+const title_analysis_1 = constants.title_analysis_1;
+const title_analysis_2 = constants.title_analysis_2;
+const title_analysis_3a = constants.title_analysis_3a;
+const title_analysis_3b = constants.title_analysis_3b;
+const end_of_analysis = constants.end_of_analysis;
+const total_donation = constants.total_donation;
+const total_dispersion = constants.total_dispersion;
+const jkm_misi = constants.jkm_misi;
+const wlc_msg = constants.wlc_msg;
+const close_msg = constants.close_msg;
 
 // Extra Screen/Class/Function Constructor
 class TestScreen extends Component {
   // Just an idiot constructor, can do nothing
-
 }
 
 // Actual Implementation
@@ -65,38 +70,35 @@ class DashboardScreen extends Component {
     modalVisible: true,
   };
 
-  setModalVisible = (visible) => {
-    this.setState({ modalVisible: visible });
-  }
+  setModalVisible = visible => {
+    this.setState({modalVisible: visible});
+  };
 
   constructor(props) {
     super(props);
-    this.state = {
-    };
-  };
-
-  SampleFunction = () => {
-    Alert.alert("Service Not Available For Current Version");
+    this.state = {};
   }
 
+  SampleFunction = () => {
+    Alert.alert('Service Not Available For Current Version');
+  };
+
   render() {
-    const { modalVisible } = this.state;
+    const {modalVisible} = this.state;
     return (
       <View>
         {/* <View>
           <Modal
             animationType="fade" // slide or fade
             transparent={true}
-            visible={modalVisible}
-          >
+            visible={modalVisible}>
             <View style={styles.modalContainer}></View>
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <Text style={styles.modalText}>{wlc_msg}</Text>
                 <Button
                   style={[styles.button, styles.buttonClose]}
-                  onPress={() => this.setModalVisible(!modalVisible)}
-                >
+                  onPress={() => this.setModalVisible(!modalVisible)}>
                   <Text style={styles.textStyle}>{close_msg}</Text>
                 </Button>
               </View>
@@ -109,44 +111,60 @@ class DashboardScreen extends Component {
           <LinearGradient
             colors={['#0072ff', '#00c6ff']}
             style={styles.dashboardcontentA}
-            start={{ x: 0, y: 0 }}>
+            start={{x: 0, y: 0}}>
             <Text style={styles.header_1}>{dashboard_head_1}</Text>
             <Text style={styles.Text1}>{jkm_misi}</Text>
             <ScrollView
               fadingEdgeLength={60}
               horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            >
-              <View backgroundColor="blue" style={styles.dashboardA_Card} >
+              showsHorizontalScrollIndicator={false}>
+              <View backgroundColor="blue" style={styles.dashboardA_Card}>
                 <TouchableOpacity activeOpacity={0.9}>
-                  <Text style={styles.dashboardA_Card_TextHeader}>{card_title_1}</Text>
-                  <Text style={styles.dashboardA_Card_Text1}>{uniqueDonorCount}</Text>
+                  <Text style={styles.dashboardA_Card_TextHeader}>
+                    {card_title_1}
+                  </Text>
+                  <Text style={styles.dashboardA_Card_Text1}>
+                    {uniqueDonorCount}
+                  </Text>
                 </TouchableOpacity>
               </View>
               <View backgroundColor="red" style={styles.dashboardA_Card}>
                 <TouchableOpacity activeOpacity={0.9}>
-                  <Text style={styles.dashboardA_Card_TextHeader}>{card_title_2}</Text>
-                  <Text style={styles.dashboardA_Card_Text1}>{DonorRetention} %</Text>
+                  <Text style={styles.dashboardA_Card_TextHeader}>
+                    {card_title_2}
+                  </Text>
+                  <Text style={styles.dashboardA_Card_Text1}>
+                    {DonorRetention} %
+                  </Text>
                 </TouchableOpacity>
               </View>
               <View backgroundColor="#52c234" style={styles.dashboardA_Card}>
                 <TouchableOpacity activeOpacity={0.9}>
-
-                  <Text style={styles.dashboardA_Card_TextHeader}>{card_title_3}</Text>
-                  <Text style={styles.dashboardA_Card_Text1}>{RecipientCount}</Text>
-                </TouchableOpacity></View>
+                  <Text style={styles.dashboardA_Card_TextHeader}>
+                    {card_title_3}
+                  </Text>
+                  <Text style={styles.dashboardA_Card_Text1}>
+                    {RecipientCount}
+                  </Text>
+                </TouchableOpacity>
+              </View>
               <View backgroundColor="orange" style={styles.dashboardA_Card}>
                 <TouchableOpacity activeOpacity={0.9}>
-
                   <Text
                     style={styles.dashboardA_Card_TextHeader}
-                    onPress={() => Linking.openURL('https://www.jkm.gov.my/jkm/index.php')}>
+                    onPress={() =>
+                      Linking.openURL('https://www.jkm.gov.my/jkm/index.php')
+                    }>
                     {card_title_4}
                   </Text>
-                  <Text style={styles.dashboardA_Card_Text1}
-                    onPress={() => Linking.openURL('https://www.jkm.gov.my/jkm/index.php')}>
+                  <Text
+                    style={styles.dashboardA_Card_Text1}
+                    onPress={() =>
+                      Linking.openURL('https://www.jkm.gov.my/jkm/index.php')
+                    }>
                     ➤
-                  </Text></TouchableOpacity>
+                  </Text>
+                </TouchableOpacity>
               </View>
             </ScrollView>
           </LinearGradient>
@@ -159,30 +177,45 @@ class DashboardScreen extends Component {
               horizontal={false}
               showsVerticalScrollIndicator={false}
               minimumZoomScale={1}
-              maximumZoomScale={5}
-            >
+              maximumZoomScale={5}>
               <View style={styles.dashboardB_Card}>
-                <Text style={styles.dashboardB_Card_TextHeader}>{title_analysis_1}</Text>
-                <Text style={styles.dashboardB_Card_Text1}>{update_by}{new Date().toDateString()}</Text>
+                <Text style={styles.dashboardB_Card_TextHeader}>
+                  {title_analysis_1}
+                </Text>
+                <Text style={styles.dashboardB_Card_Text1}>
+                  {update_by}
+                  {new Date().toDateString()}
+                </Text>
                 <View>
                   <LineChart
                     data={statistic}
                     width={chart_w}
-                    height={chart_h * 0.80}
+                    height={chart_h * 0.8}
                     yAxisInterval={1}
-                    yAxisLabel={"RM"}
+                    yAxisLabel={'RM'}
                     chartConfig={styles.chartConfig_1}
                     bezier
                     style={styles.chart}
                   />
-                  <Text style={styles.dashboardB_Card_Text2}>{total_donation}{totalDonation}</Text>
-                  <Text style={styles.dashboardB_Card_Text2}>{total_dispersion}{totalDispersion}</Text>
+                  <Text style={styles.dashboardB_Card_Text2}>
+                    {total_donation}
+                    {totalDonation}
+                  </Text>
+                  <Text style={styles.dashboardB_Card_Text2}>
+                    {total_dispersion}
+                    {totalDispersion}
+                  </Text>
                 </View>
               </View>
               <View style={styles.dashboardB_Card}>
                 <View>
-                  <Text style={styles.dashboardB_Card_TextHeader}>{title_analysis_2}</Text>
-                  <Text style={styles.dashboardB_Card_Text1}>{update_by}{new Date().toDateString()}</Text>
+                  <Text style={styles.dashboardB_Card_TextHeader}>
+                    {title_analysis_2}
+                  </Text>
+                  <Text style={styles.dashboardB_Card_Text1}>
+                    {update_by}
+                    {new Date().toDateString()}
+                  </Text>
                   <ProgressChart
                     marginTop={10}
                     data={categorydata}
@@ -198,14 +231,21 @@ class DashboardScreen extends Component {
 
               <View style={styles.dashboardB_Card}>
                 <View>
-                  <Text style={styles.dashboardB_Card_TextHeader}>{title_analysis_3a}</Text>
-                  <Text style={styles.dashboardB_Card_TextHeader}>{title_analysis_3b}</Text>
-                  <Text style={styles.dashboardB_Card_Text1}>{update_by}{new Date().toDateString()}</Text>
+                  <Text style={styles.dashboardB_Card_TextHeader}>
+                    {title_analysis_3a}
+                  </Text>
+                  <Text style={styles.dashboardB_Card_TextHeader}>
+                    {title_analysis_3b}
+                  </Text>
+                  <Text style={styles.dashboardB_Card_Text1}>
+                    {update_by}
+                    {new Date().toDateString()}
+                  </Text>
                   <BarChart
                     data={statedata}
                     width={chart_w * 0.95}
                     height={chart_h}
-                    yAxisSuffix={"$"}
+                    yAxisSuffix={'$'}
                     chartConfig={styles.chartConfig_3}
                     verticalLabelRotation={30}
                   />
@@ -256,11 +296,9 @@ class DashboardScreen extends Component {
 
                 </View>
               </View> */}
-
             </ScrollView>
           </View>
         </View>
-
 
         {/* <View>
           <TouchableOpacity
@@ -275,14 +313,13 @@ class DashboardScreen extends Component {
             />
           </TouchableOpacity>
         </View> */}
-
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   dashboardcontentA: {
     width,
@@ -304,17 +341,17 @@ const styles = StyleSheet.create({
     flex: 1,
     width: 155,
     height: 100,
-    resizeMode: "contain",
+    resizeMode: 'contain',
     opacity: 1,
     borderRadius: 15,
-    alignContent: "center",
+    alignContent: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 1, height: 1 },
+    shadowOffset: {width: 1, height: 1},
     shadowOpacity: 0.8,
     shadowRadius: 2,
-    elevation: 5
+    elevation: 5,
   },
   dashboardB_Card: {
     marginTop: 6,
@@ -323,88 +360,88 @@ const styles = StyleSheet.create({
     width: dashboardPartB_card_w,
     height: dashboardPartB_card_h,
     marginLeft: 15,
-    resizeMode: "contain",
-    alignContent: "center",
-    backgroundColor: "#FFF",
+    resizeMode: 'contain',
+    alignContent: 'center',
+    backgroundColor: '#FFF',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.8,
     shadowRadius: 2,
-    elevation: 5
+    elevation: 5,
   },
   dashboardA_Card_TextHeader: {
     marginTop: 5,
-    color: "white",
+    color: 'white',
     fontSize: 18,
     lineHeight: 20,
-    fontWeight: "bold",
-    textAlign: "center"
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   dashboardA_Card_Text1: {
     marginTop: 5,
-    color: "white",
+    color: 'white',
     fontSize: 16,
     lineHeight: 30,
-    fontWeight: "bold",
-    textAlign: "center"
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   dashboardB_Card_TextHeader: {
     marginTop: 5,
-    color: "black",
+    color: 'black',
     fontSize: 18,
     lineHeight: 20,
-    fontWeight: "bold",
-    textAlign: "center"
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   dashboardB_Card_Text1: {
     marginBottom: 10,
-    color: "black",
+    color: 'black',
     fontSize: 14,
     lineHeight: 30,
-    textAlign: "center"
+    textAlign: 'center',
   },
   dashboardB_Card_Text2: {
     marginRight: 15,
-    textAlign: "right"
+    textAlign: 'right',
   },
   chart: {
     margin: 10,
     borderRadius: 16,
-    textAlign: "center",
-    alignContent: "center",
-    justifyContent: 'center'
+    textAlign: 'center',
+    alignContent: 'center',
+    justifyContent: 'center',
   },
   header_1: {
     marginLeft: 15,
-    color: "white",
+    color: 'white',
     fontSize: 26,
     lineHeight: 50,
-    fontWeight: "bold",
-    textAlign: "left",
+    fontWeight: 'bold',
+    textAlign: 'left',
   },
   Text1: {
     marginLeft: 15,
     marginTop: 0,
     marginBottom: 10,
-    color: "white",
+    color: 'white',
     fontSize: 14,
-    fontFamily: 'sans-serif-condensed'
+    fontFamily: 'sans-serif-condensed',
   },
   header_2: {
     marginLeft: 15,
-    color: "black",
+    color: 'black',
     fontSize: 20,
     lineHeight: 40,
-    fontWeight: "bold",
-    textAlign: "left",
+    fontWeight: 'bold',
+    textAlign: 'left',
   },
   endOfScrolltxt: {
     marginBottom: 30,
-    color: "grey",
+    color: 'grey',
     fontSize: 16,
     lineHeight: 40,
-    fontWeight: "bold",
-    textAlign: "center",
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   modalContainer: {
     margin: 0,
@@ -412,31 +449,31 @@ const styles = StyleSheet.create({
     opacity: 0.4,
     width,
     height: height,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#FFFAFA",
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFFAFA',
   },
   centeredView: {
     margin: 0,
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   modalView: {
-    backgroundColor: "#FFFAFA",
-    borderColor: "grey",
+    backgroundColor: '#FFFAFA',
+    borderColor: 'grey',
     borderRadius: 30,
     borderWidth: 1,
     padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 10,
-      height: 16
+      height: 16,
     },
     shadowOpacity: 0.75,
     shadowRadius: 40,
-    elevation: 5
+    elevation: 5,
   },
   button: {
     width: 300,
@@ -444,28 +481,28 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   buttonOpen: {
-    backgroundColor: "#F194FF",
+    backgroundColor: '#F194FF',
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: '#2196F3',
   },
   textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   modalText: {
     fontSize: 20,
     marginBottom: 15,
-    color: "black",
-    fontWeight: "bold",
-    textAlign: "center",
+    color: 'black',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   stackedButtonStyle: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#dc4e41',
-    borderWidth: .5,
+    borderWidth: 0.5,
     borderColor: '#fff',
     height: 60,
     width: 300,
@@ -482,12 +519,12 @@ const styles = StyleSheet.create({
   SeparatorLine: {
     backgroundColor: '#fff',
     width: 1,
-    height: 70
+    height: 70,
   },
   IconTextStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
     marginLeft: 20,
   },
   TouchableOpacityStyle: {
@@ -502,49 +539,48 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     width: 50,
     height: 50,
-    zIndex: 7
+    zIndex: 7,
   },
   chartConfig_1: {
-    backgroundGradientFrom: "white",
+    backgroundGradientFrom: 'white',
     backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: "white",
+    backgroundGradientTo: 'white',
     backgroundGradientToOpacity: 0.5,
     decimalPlaces: 0,
     color: (opacity = 1) => `rgba(0, 131, 176, ${opacity})`,
     labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
     style: {
-      borderRadius: 16
+      borderRadius: 16,
     },
     propsForDots: {
-      r: "6",
-      strokeWidth: "2",
-      stroke: "#ffddab"
-    }
+      r: '6',
+      strokeWidth: '2',
+      stroke: '#ffddab',
+    },
   },
   chartConfig_2: {
-    backgroundGradientFrom: "white",
+    backgroundGradientFrom: 'white',
     backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: "white",
+    backgroundGradientTo: 'white',
     backgroundGradientToOpacity: 0.5,
     color: (opacity = 1) => `rgba(0, 131, 176, ${opacity})`,
     labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
     strokeWidth: 2,
     barPercentage: 0.5,
-    useShadowColorFromDataset: false
+    useShadowColorFromDataset: false,
   },
   chartConfig_3: {
-    backgroundGradientFrom: "white",
+    backgroundGradientFrom: 'white',
     backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: "white",
+    backgroundGradientTo: 'white',
     backgroundGradientToOpacity: 0.5,
     color: (opacity = 1) => `rgba(0, 131, 176, ${opacity})`,
     labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-    resizeMode: "contain",
+    resizeMode: 'contain',
     strokeWidth: 2,
     barPercentage: 0.5,
-    useShadowColorFromDataset: false
-  }
-
+    useShadowColorFromDataset: false,
+  },
 });
 
 export default DashboardScreen;
