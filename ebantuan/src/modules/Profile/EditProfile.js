@@ -32,16 +32,16 @@ function EditProfile({navigation, route}) {
           details: Boolean(true),
           IC: txtIC,
           address: txtAddress,
-          card_Num: Number(txtCard),
-          phone_Num: Number(txtPhone),
+          card_Num: txtCard,
+          phone_Num: txtPhone,
         })
         .then(() => {
-          console.log('user info updated!');
+          console.log('user info updated!'), navigation.goBack();
         });
       setTxtAddress('');
       setTxtCard('');
-      // setTxtIC('');
-      // setTxtPhone('');
+      setTxtIC('');
+      setTxtPhone('');
     }
   }
   return (

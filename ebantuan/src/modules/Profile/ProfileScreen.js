@@ -8,6 +8,7 @@ import {Avatar} from './Avatar';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import LinearGradient from 'react-native-linear-gradient';
+import {Icon} from 'react-native-elements';
 
 function ProfileScreen({navigation}) {
   const onAvatarChange = (image: ImageOrVideo) => {
@@ -52,8 +53,8 @@ function ProfileScreen({navigation}) {
           details: Boolean(false),
           IC: 'My Card',
           address: 'Home Address',
-          card_Num: Number(0),
-          phone_Num: Number(),
+          card_Num: '',
+          phone_Num: '',
         })
         .then(() => {
           console.log('User Info added!');
@@ -109,7 +110,7 @@ function ProfileScreen({navigation}) {
             </Button>
             <Avatar
               onChange={onAvatarChange}
-              source={imageUrl ? {uri: imageUrl} : require('./plus.png')}
+              source={imageUrl ? {uri: imageUrl} : require('./assets/plus.png')}
             />
             {/* {imageUrl ? null : <Text>Upload photo with black cirlce.</Text>} */}
             <Text style={styles.header_text}> {item.name}</Text>
@@ -119,25 +120,71 @@ function ProfileScreen({navigation}) {
         <View style={styles.footer}>
           {item.details ? (
             <View>
-              <Text style={styles.address}>Address: {item.address}</Text>
-              <IconButton
-                icon={'pen'}
-                size={25}
-                onPress={() => {
-                  navigation.navigate('Edit Profile', {
-                    item: {
-                      name: item.name,
-                      userId: user.uid,
-                      address: item.address,
-                      details: item.details,
-                      IC: item.iC,
-                      card_Num: item.card_Num,
-                      phone_Num: item.phone_Num,
-                      imageUrl: imageUrl,
-                    },
-                  });
-                }}
-              />
+              <Text style={styles.text}>
+                Lead the formulation of comprehensive, integrated and effective
+                national security policy and management
+              </Text>
+              <View style={styles.row}>
+                <Text style={styles.title}>Account Info</Text>
+                <IconButton
+                  icon={'pen'}
+                  size={25}
+                  onPress={() => {
+                    navigation.navigate('Edit Profile', {
+                      item: {
+                        name: item.name,
+                        userId: user.uid,
+                        address: item.address,
+                        details: item.details,
+                        iC: item.IC,
+                        card_Num: item.card_Num,
+                        phone_Num: item.phone_Num,
+                        imageUrl: imageUrl,
+                      },
+                    });
+                  }}
+                />
+              </View>
+              <View style={styles.column}>
+                <Image
+                  source={require('./assets/address.png')}
+                  style={styles.icon}
+                />
+                <View>
+                  <Text style={styles.address}>Address: </Text>
+                  <Text style={styles.ans}>{item.address}</Text>
+                </View>
+              </View>
+              <View style={styles.column}>
+                <Image
+                  source={require('./assets/phone.png')}
+                  style={styles.icon}
+                />
+                <View>
+                  <Text style={styles.address}>Phone Number: </Text>
+                  <Text style={styles.ans}>{item.phone_Num}</Text>
+                </View>
+              </View>
+              <View style={styles.column}>
+                <Image
+                  source={require('./assets/IC.png')}
+                  style={styles.icon}
+                />
+                <View>
+                  <Text style={styles.address}>Idendity Card Number: </Text>
+                  <Text style={styles.ans}>{item.IC}</Text>
+                </View>
+              </View>
+              <View style={styles.column}>
+                <Image
+                  source={require('./assets/creditcard.png')}
+                  style={styles.icon}
+                />
+                <View>
+                  <Text style={styles.address}>Card Number: </Text>
+                  <Text style={styles.ans}>{item.card_Num}</Text>
+                </View>
+              </View>
             </View>
           ) : (
             <View style={styles.center}>
@@ -151,7 +198,7 @@ function ProfileScreen({navigation}) {
                       userId: user.uid,
                       address: item.address,
                       details: item.details,
-                      IC: item.iC,
+                      iC: item.IC,
                       card_Num: item.card_Num,
                       phone_Num: item.phone_Num,
                       imageUrl: imageUrl,
@@ -160,7 +207,10 @@ function ProfileScreen({navigation}) {
                 }}>
                 Fill in details for system need
               </Button>
-              <Image style={styles.image} source={require('./info.png')} />
+              <Image
+                style={styles.image}
+                source={require('./assets/info.png')}
+              />
             </View>
           )}
         </View>
@@ -182,7 +232,6 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   box1: {
     flex: 1,
@@ -209,7 +258,7 @@ const styles = StyleSheet.create({
     top: 10,
   },
   footer: {
-    flex: 2,
+    flex: 3,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
@@ -219,8 +268,56 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
   },
+  address: {
+    fontSize: 15,
+  },
   image: {
     height: 350,
     width: 350,
+  },
+  text: {
+    borderBottomWidth: 2,
+    fontSize: 15,
+    fontFamily: 'monospace',
+    color: 'black',
+    paddingBottom: 15,
+  },
+  address: {
+    fontSize: 20,
+    color: 'black',
+    marginBottom: 5,
+    paddingTop: 9,
+    paddingLeft: 20,
+  },
+  ans: {
+    paddingLeft: 20,
+    fontSize: 18,
+  },
+  row: {
+    paddingTop: 20,
+    paddingBottom: 10,
+    flexDirection: 'row',
+    alignContent: 'space-around',
+  },
+  title: {
+    fontSize: 35,
+  },
+  column: {
+    flexDirection: 'row',
+    marginBottom: 10,
+    borderBottomWidth: 0.2,
+    borderTopWidth: 0.2,
+    color: 'grey',
+    borderRadius: 30,
+
+    backgroundColor: '#fff',
+  },
+  icon: {
+    marginTop: 8,
+    marginLeft: 5,
+    resizeMode: 'contain',
+    height: 50,
+    width: 60,
+    borderRadius: 200,
   },
 });

@@ -20,7 +20,7 @@ const TempSign = ({navigation}) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Image
-          source={require('./JKM_logo.png')}
+          source={require('./assets/JKM_logo.png')}
           style={styles.logo}
           resizeMode="stretch"
         />
