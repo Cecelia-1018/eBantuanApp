@@ -9,7 +9,7 @@ import {
   Button,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Avatar, IconButton} from 'react-native-paper';
+import {Avatar, IconButton, Title} from 'react-native-paper';
 
 import {Icon} from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -18,28 +18,28 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const TempSign = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Image
-          source={require('./assets/JKM_logo.png')}
-          style={styles.logo}
-          resizeMode="stretch"
-        />
+      <LinearGradient
+        colors={['#045de9', '#09c6f9']}
+        style={styles.box1}
+        start={{x: 0.3, y: 0}}>
+        <Title style={styles.title}>JKM eBantuan</Title>
+        {/* <Title style={styles.title}>RM 15000.00</Title> */}
+      </LinearGradient>
+
+      <View style={styles.footer}>
+        {/* <Animatable.View style={styles.footer} animation="fadeInUpBig"> */}
+        <Text style={styles.Name}>Welfare Assistance Management System</Text>
         <Text style={styles.text}>
           Lead the formulation of comprehensive, integrated and effective
           national security policy and management
         </Text>
-      </View>
-      <View style={styles.footer}>
-        {/* <Animatable.View style={styles.footer} animation="fadeInUpBig"> */}
-        <Text style={styles.title}>Welfare Assistance Management System</Text>
-
         <View style={styles.button}>
           <Button
             style={[styles.signIn]}
-            color="black"
+            color="#09c6f9"
             onPress={() => navigation.navigate('SigninScreen')}
             mode="outlined"
-            title="Get Started -->"></Button>
+            title="Get Started"></Button>
         </View>
       </View>
     </View>
@@ -56,6 +56,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  box1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    padding: 10,
+    margin: 20,
+  },
   header: {
     backgroundColor: '#a9cdeb',
     flex: 2,
@@ -65,7 +73,7 @@ const styles = StyleSheet.create({
     borderBottomEndRadius: 100,
   },
   footer: {
-    flex: 1,
+    flex: 2,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingVertical: 50,
@@ -75,7 +83,7 @@ const styles = StyleSheet.create({
     width: 800,
     height: 400,
   },
-  title: {
+  Name: {
     color: '#05375a',
     fontSize: 30,
     fontWeight: 'bold',
@@ -97,5 +105,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 50,
     flexDirection: 'row',
+  },
+  title: {
+    color: '#FFF0F5',
+    fontFamily: 'sans-serif',
+    fontWeight: 'bold',
   },
 });
