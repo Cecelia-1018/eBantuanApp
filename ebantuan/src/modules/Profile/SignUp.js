@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
   },
   text_header: {
-    color: '#fff',
+    color: 'black',
     fontWeight: 'bold',
     paddingTop: 50,
     paddingBottom: 30,

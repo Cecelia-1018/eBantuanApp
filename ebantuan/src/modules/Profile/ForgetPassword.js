@@ -112,6 +112,15 @@ const ForgetPassword = ({navigation}) => {
               Reset
             </Button>
           </View>
+          <View style={styles.button}>
+            <Button
+              style={[styles.signIn]}
+              color="black"
+              onPress={() => navigation.goBack()}
+              mode="text">
+              Back
+            </Button>
+          </View>
         </View>
       </LinearGradient>
     </View>
@@ -140,7 +149,7 @@ const styles = StyleSheet.create({
     paddingVertical: 60,
   },
   text_header: {
-    color: '#fff',
+    color: 'black',
     fontWeight: 'bold',
     paddingTop: 50,
     paddingBottom: 30,
@@ -169,7 +178,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    color: 'white',
+    color: 'black',
     paddingLeft: 12,
     paddingBottom: 2,
   },
