@@ -162,7 +162,7 @@ function FundHelpApplicationScreen({ navigation, route }) {
     setName('');
     setIC('');
     // TODO: Hold a few seconds
-    navigation.navigate('FundHelpScreen');
+    navigation.navigate('Fund Help');
 
   }
 
