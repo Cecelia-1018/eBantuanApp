@@ -138,6 +138,7 @@ function App() {
         {/* add additional screen here */}
         <Stack.Screen name="Donate" component={Donate} />
         <Stack.Screen name="Donation Receipt" component={DonationReceipt} />
+        <Stack.Screen name="FundHelpScreen" component={FundHelpScreen} />
         <Stack.Screen name="Fund Help Application" component={FundHelpApplicationScreen} />
         <Stack.Screen name="FundHelpAccordion" component={FundHelpAccordion} />
         <Stack.Screen name="Fund Help Application History" component={FundHelpApplicationHistory} />

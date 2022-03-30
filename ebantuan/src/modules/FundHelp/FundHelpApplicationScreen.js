@@ -1,18 +1,27 @@
-import React, { useState, useEffect, Component,useCallback  } from 'react';
-import { Text, View, StyleSheet, Image, Alert } from 'react-native';
+import React, { useState, useEffect, Component,useCallback ,useRef } from 'react';
+import { Text, View, StyleSheet, Image, Alert,FlatList } from 'react-native';
 import { TextInput, Button, Snackbar, Title } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 import DocumentPicker, { types } from 'react-native-document-picker';
 import auth, {firebase} from '@react-native-firebase/auth';
 
-function FundHelpApplicationScreen({ navigation, applicationType }) {
+//retrieve name and ic
+//field not edit : name and ic
+
+function FundHelpApplicationScreen({ navigation, route }) {
+  //navigation
+  const {item} = route.params;
+  const [applicationType, setApplicationType] = React.useState(item.applicationType);
 
   const user = firebase.auth().currentUser;
+  const flatlistRef = useRef();
 
   const [userCol, setUserCol] = useState([]);
   const { uid } = auth().currentUser;
 
   const ref2 = firestore().collection('users').doc(uid);
+  const [name, setName] = React.useState(user.displayName);
+  const [ic, setIC] = React.useState("");
 
   //check this user exist or not
   ref2.get().then(documentSnapshot => {
@@ -55,8 +64,45 @@ function FundHelpApplicationScreen({ navigation, applicationType }) {
     return () => subscriber();
   }, [uid]);
 
-  const [name, setName] = React.useState("");
-  const [ic, setIC] = React.useState("");
+  const renderItem = ({item}) => {
+    return(
+      <View style={{ flex: 1 }}>
+        <Title style={{ textAlign: "center", margin: 5}}>
+          {applicationType}
+        </Title>
+  
+        <TextInput
+          style={styles.input}
+          label="Enter"
+          value={name}
+          mode="outlined"
+          outlineColor="#045de9"
+          activeOutlineColor="#045de9"
+          disabled= "true"
+        />
+        <TextInput
+          style={styles.input}
+          label="IC"
+          value={item.IC}
+          mode="outlined"
+          outlineColor="#045de9"
+          activeOutlineColor="#045de9"
+          disabled= "true"
+        />
+        <Button style={styles.input} icon={require('./assets/upload.png')}  onPress={() => {
+            alert("Upload sucess");
+          }}>Upload Document(s)</Button>
+        <Button icon={require('./assets/donation.png')} style={styles.button} mode="contained" color="#045de9"
+         onPress={() => {
+          addFundHelp();
+        }}>
+          Submit Now
+        </Button>
+      </View>
+    )
+  }
+
+ 
 
 
   //firebase
@@ -93,7 +139,7 @@ function FundHelpApplicationScreen({ navigation, applicationType }) {
         type: [types.allFiles],
     allowMultiSelection: true,
       });
-      Alert("Upload success");
+      alert("Uploads success");
       //setFileResponse(response);
     } catch (err) {
       console.warn(err);
@@ -104,10 +150,10 @@ function FundHelpApplicationScreen({ navigation, applicationType }) {
     await ref
       .add({
         //add id here
-        Application_Name: applicationType,
+        Application_Name: applicationType, 
         Application_Date: applicationDate,
         Application_Status: applicationStatus(),
-        //userId: uid
+        userId: user.uid,
       })
       .then(() => {
         console.log('Fund Help added!');
@@ -125,34 +171,12 @@ function FundHelpApplicationScreen({ navigation, applicationType }) {
     <View style={{
       flex: 1,
     }}>
-      <Title>
-        {applicationType}
-      </Title>
-
-      <TextInput
-        style={styles.input}
-        label="Enter"
-        value={userCol.name}
-        mode="outlined"
-        outlineColor="#045de9"
-        activeOutlineColor="#045de9"
-        //editable="false"
+      <FlatList
+        ref={flatlistRef}
+        data={userCol}
+        keyExtractor={item => item.userId}
+        renderItem={renderItem}
       />
-      <TextInput
-        style={styles.input}
-        label="IC"
-        value={userCol.IC}
-        mode="outlined"
-        outlineColor="#045de9"
-        activeOutlineColor="#045de9"
-        //editable="false"
-      />
-      <Button style={styles.input} icon={require('./assets/upload.png')} onPress={handleDocumentSelection}>Upload Document(s)</Button>
-      <Button icon={require('./assets/donation.png')} style={styles.button} mode="contained" color="#045de9" onPress={() => {
-        addFundHelp();
-      }}>
-        Submit Now
-      </Button>
     </View>
   );
 

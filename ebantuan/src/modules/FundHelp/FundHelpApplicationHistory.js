@@ -12,6 +12,9 @@ import firestore from '@react-native-firebase/firestore';
 import {Card, Paragraph, Button, Title} from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import auth, {firebase} from '@react-native-firebase/auth';
+
+//show status put at card property 
 
 function FundHelpApplicationHistory({navigation}) {
   const flatlistRef = useRef();
@@ -26,38 +29,43 @@ function FundHelpApplicationHistory({navigation}) {
   const [fundHelp, setFundHelp] = useState([]); // Initial empty array of forums
 
    function cardStatus (status){
-if(status=="approved"){
-  return "./assets/approved.png";
-}else if(status=="rejected"){
-  return "./assets/rejected.png";
-}else{
-  return "./assets/pending.jpg";
-}
+    if(status=="approved"){
+      return "./assets/approved.png";
+    }else if(status=="rejected"){
+      return "./assets/rejected.png";
+    }else{
+      return "./assets/pending.jpg";
+    }
   }
 
   const renderItem = ({item}) => {
-imageUri=cardStatus(item.Application_Status);
-
     return (
-      <SafeAreaProvider >
-          <View>
-            <Card>
-              <Card.Content>
-                <View
-                  style={{
-                    backgroundColor: 'white',
-                    borderRadius: 5,
-                    padding: 5,
-                    margin: 5,
-                  }}>
+      <SafeAreaProvider>
+        <View>
+          <Card>
+            <Card.Content>
+              <View
+                style={{
+                  backgroundColor: 'white',
+                  borderRadius: 5,
+                  padding: 5,
+                  margin: 5,
+                }}>
+                <View>
                   <Title>{item.Application_Name}</Title>
-                  <View style={{flexDirection: 'row', }}>
                   <Paragraph>Date {item.Application_Date} </Paragraph>
-                  </View>
                 </View>
-              </Card.Content>
-            </Card>
-          </View>
+
+                <LinearGradient
+                  colors={['#045de9', '#09c6f9']}
+                  style={{alignSelf: 'flex-start', padding: 5, borderRadius: 5}}
+                  start={{x: 0.3, y: 0}}>
+                  <Text style={{fontWeight: 'bold', color: 'white'}}>{item.Application_Status}</Text>
+                </LinearGradient>
+              </View>
+            </Card.Content>
+          </Card>
+        </View>
       </SafeAreaProvider>
     );
   };
@@ -65,6 +73,7 @@ imageUri=cardStatus(item.Application_Status);
   useEffect(() => {
     const subscriber = firestore()
       .collection('FundHelp')
+      .where('userId', 'in', [uid])
       .onSnapshot(querySnapshot => {
         const fundHelp = [];
 
@@ -77,11 +86,13 @@ imageUri=cardStatus(item.Application_Status);
 
         setFundHelp(fundHelp);
         setLoading(false);
-      });
+
+
+    });
 
     // Unsubscribe from events when no longer in use
-    //return () => subscriber();
-  });
+    return () => subscriber();
+  }, []);
 
   if (loading) {
     return <ActivityIndicator size="large" color="#045de9" />;

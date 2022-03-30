@@ -39,7 +39,17 @@ export default function FundHelpAccordion({navigation}) {
               {index === currentIndex && (
                 <View style={styles.subCategoriesList}>
                   {subCategories.map((subCategory) => (
-                    <Text key={subCategory} style={[styles.body, { color }]} onPress={() => navigation.navigate('Fund Help Application',applicationType={subCategory})}>
+                    <Text key={subCategory} style={[styles.body, { color }]} 
+                    onPress={() => {
+                      navigation.navigate('Fund Help Application', {
+                        //pass params here
+                        item: {
+                          applicationType: subCategory,
+                         
+                        },
+                      });
+                    }}
+                  >
                       {subCategory}
                     </Text>
                   ))}
