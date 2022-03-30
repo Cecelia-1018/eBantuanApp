@@ -15,6 +15,9 @@ import Donate from './src/modules/Donation/Donate';
 import DonationReceipt from './src/modules/Donation/DonationReceipt';
 
 import FundHelpScreen from './src/modules/FundHelp/FundHelpScreen';
+import FundHelpAccordion from './src/modules/FundHelp/FundHelpAccordion';
+import FundHelpApplicationScreen from './src/modules/FundHelp/FundHelpApplicationScreen';
+import FundHelpApplicationHistory from './src/modules/FundHelp/FundHelpApplicationHistory';
 
 import MainSign from './src/modules/Profile/MainSign';
 import ProfileScreen from './src/modules/Profile/ProfileScreen';
@@ -135,6 +138,9 @@ function App() {
         {/* add additional screen here */}
         <Stack.Screen name="Donate" component={Donate} />
         <Stack.Screen name="Donation Receipt" component={DonationReceipt} />
+        <Stack.Screen name="Fund Help Application" component={FundHelpApplicationScreen} />
+        <Stack.Screen name="FundHelpAccordion" component={FundHelpAccordion} />
+        <Stack.Screen name="Fund Help Application History" component={FundHelpApplicationHistory} />
         <Stack.Screen name="TestScreen" component={TestScreen} />
         <Stack.Screen name="Edit Profile" component={EditProfile} />
       </Stack.Navigator>
