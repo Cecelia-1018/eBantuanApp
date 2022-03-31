@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet, FlatList, Image} from 'react-native';
+import {Text, View, StyleSheet, FlatList, Image, Alert} from 'react-native';
 import {Button, IconButton} from 'react-native-paper';
 import auth, {firebase} from '@react-native-firebase/auth';
 import RNRestart from 'react-native-restart';
@@ -102,7 +102,25 @@ function ProfileScreen({navigation}) {
           start={{x: 0, y: 0}}>
           <View style={styles.userRow}>
             <Button
-              onPress={logoutClick}
+              onPress={() =>
+                Alert.alert(
+                  'Confirmation',
+                  'Are you sure you want to log out?',
+                  [
+                    {
+                      text: 'Cancel',
+                      onPress: () => console.log('Cancel Pressed'),
+                      style: 'cancel',
+                    },
+                    {
+                      text: 'Confirm',
+                      onPress: () => {
+                        firebase.auth().signOut(), RNRestart.Restart();
+                      },
+                    },
+                  ],
+                )
+              }
               color="black"
               mode="contained"
               style={styles.logout}>
